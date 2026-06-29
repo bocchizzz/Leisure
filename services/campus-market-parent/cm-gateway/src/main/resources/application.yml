@@ -1,0 +1,145 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: cm-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        enabled: true
+    gateway:
+      routes:
+        # cm-auth 路由
+        - id: auth-service
+          uri: lb://cm-auth
+          predicates:
+            - Path=/api/auth/**
+        - id: users-service
+          uri: lb://cm-auth
+          predicates:
+            - Path=/api/users/**
+        - id: admin-users-service
+          uri: lb://cm-auth
+          predicates:
+            - Path=/api/admin/users/**
+
+        # cm-product 路由
+        - id: products-service
+          uri: lb://cm-product
+          predicates:
+            - Path=/api/products/**
+        - id: favorites-service
+          uri: lb://cm-product
+          predicates:
+            - Path=/api/favorites/**
+        - id: history-service
+          uri: lb://cm-product
+          predicates:
+            - Path=/api/history/**
+        - id: browse-history-service
+          uri: lb://cm-product
+          predicates:
+            - Path=/api/browse-history/**
+        - id: files-service
+          uri: lb://cm-product
+          predicates:
+            - Path=/api/files/**
+        - id: uploads-service
+          uri: lb://cm-product
+          predicates:
+            - Path=/uploads/**
+        - id: admin-products-service
+          uri: lb://cm-product
+          predicates:
+            - Path=/api/admin/products/**
+        - id: product-stats-service
+          uri: lb://cm-product
+          predicates:
+            - Path=/api/stats/products
+        - id: ai-service
+          uri: lb://cm-product
+          predicates:
+            - Path=/api/ai/**
+
+        # cm-trade 路由
+        - id: orders-service
+          uri: lb://cm-trade
+          predicates:
+            - Path=/api/orders/**
+        - id: reviews-service
+          uri: lb://cm-trade
+          predicates:
+            - Path=/api/reviews/**
+        - id: admin-orders-service
+          uri: lb://cm-trade
+          predicates:
+            - Path=/api/admin/orders/**
+        - id: order-stats-service
+          uri: lb://cm-trade
+          predicates:
+            - Path=/api/stats/orders
+
+        # cm-notify 路由
+        - id: messages-service
+          uri: lb://cm-notify
+          predicates:
+            - Path=/api/messages/**
+        - id: appeals-service
+          uri: lb://cm-notify
+          predicates:
+            - Path=/api/appeals/**
+        - id: admin-dashboard-service
+          uri: lb://cm-notify
+          predicates:
+            - Path=/api/admin/dashboard
+        - id: admin-appeals-service
+          uri: lb://cm-notify
+          predicates:
+            - Path=/api/admin/appeals/**
+        - id: admin-audit-logs-service
+          uri: lb://cm-notify
+          predicates:
+            - Path=/api/admin/audit-logs/**
+        - id: user-stats-service
+          uri: lb://cm-auth
+          predicates:
+            - Path=/api/stats/users
+
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOriginPatterns:
+              - "http://localhost:*"
+              - "http://127.0.0.1:*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+              - PATCH
+            allowedHeaders: "*"
+            exposedHeaders:
+              - Authorization
+              - X-Request-Id
+            allowCredentials: true
+            maxAge: 3600
+
+jwt:
+  secret: campusMarketSecretKey2024VeryLongSecretKeyForHS512Algorithm
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.campus.market: DEBUG
+    org.springframework.cloud.gateway: DEBUG
