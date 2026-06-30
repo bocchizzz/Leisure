@@ -1,0 +1,257 @@
+/* ============================================================
+   赏金布 Campus Quest — 复古西部赏金猎人主题
+   设计基准：docs/最终样式.png
+   ============================================================ */
+
+:root {
+  /* —— 羊皮纸背景 —— */
+  --paper-0: #F3ECD9;          /* 最浅，卡片高光 */
+  --paper-1: #EDE4CE;          /* 主背景 */
+  --paper-2: #E4D8BC;          /* 次级背景/分隔 */
+  --paper-3: #D8C8A4;          /* 描边、虚线 */
+  --paper-card: #F1E9D4;       /* 卡片底 */
+
+  /* —— 皮革侧边栏 —— */
+  --leather-0: #3A2615;
+  --leather-1: #2A1B0E;
+  --leather-2: #1C1108;
+  --leather-line: #4A301B;
+
+  /* —— 锈橙主强调 —— */
+  --rust-400: #E8821E;
+  --rust-500: #C8641E;
+  --rust-600: #A84E14;
+  --rust-glow: rgba(200, 100, 30, 0.28);
+
+  /* —— 橄榄军绿次强调 —— */
+  --olive-400: #93A24A;
+  --olive-500: #7A8B3A;
+  --olive-600: #5E6C2A;
+
+  /* —— 墨色文字 —— */
+  --ink-900: #2A1B0E;
+  --ink-700: #3A2818;
+  --ink-500: #6B5641;
+  --ink-400: #8A7559;
+  --ink-300: #A8957A;
+
+  /* —— 语义色 —— */
+  --success: #5E8C3A;
+  --warning: #D6911E;
+  --danger: #B33A2A;
+  --info: #6B7A8C;
+
+  /* —— 阴影 —— */
+  --shadow-sm: 0 1px 3px rgba(58, 40, 24, 0.12);
+  --shadow-md: 0 4px 14px rgba(58, 40, 24, 0.16);
+  --shadow-lg: 0 10px 30px rgba(58, 40, 24, 0.22);
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+
+  /* —— 圆角 —— */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+
+  /* —— 字体 —— */
+  --font-display: 'Oswald', 'Anton', 'Impact', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-body: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* ============================================================
+   全局基础
+   ============================================================ */
+* { box-sizing: border-box; }
+
+html, body, #app {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink-700);
+  background-color: var(--paper-1);
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(180, 150, 100, 0.10), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(150, 120, 80, 0.08), transparent 45%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+ul { list-style: none; margin: 0; padding: 0; }
+
+/* —— 滚动条 —— */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--paper-3);
+  border-radius: 6px;
+  border: 2px solid var(--paper-1);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--ink-300); }
+
+/* ============================================================
+   排版工具类
+   ============================================================ */
+.cq-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--ink-900);
+  line-height: 0.95;
+}
+.cq-eyebrow {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--ink-400);
+  font-weight: 600;
+}
+.cq-muted { color: var(--ink-400); }
+
+/* ============================================================
+   卡片
+   ============================================================ */
+.cq-card {
+  background: var(--paper-card);
+  border: 1px solid var(--paper-3);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+.cq-card--dashed {
+  border-style: dashed;
+  border-color: var(--ink-300);
+}
+.cq-card--raised { box-shadow: var(--shadow-md); }
+
+/* ============================================================
+   按钮（自建，承载羊皮纸/锈橙美学）
+   ============================================================ */
+.cq-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+  white-space: nowrap;
+}
+.cq-btn:active { transform: translateY(1px); }
+
+.cq-btn--primary {
+  background: linear-gradient(180deg, var(--rust-400), var(--rust-500));
+  color: #fff7ec;
+  box-shadow: 0 4px 0 var(--rust-600), var(--shadow-md);
+}
+.cq-btn--primary:hover { background: linear-gradient(180deg, #f08e2a, var(--rust-400)); }
+
+.cq-btn--olive {
+  background: linear-gradient(180deg, var(--olive-400), var(--olive-500));
+  color: #f7f4e4;
+  box-shadow: 0 4px 0 var(--olive-600), var(--shadow-md);
+}
+
+.cq-btn--ghost {
+  background: transparent;
+  color: var(--ink-700);
+  border: 1.5px solid var(--paper-3);
+}
+.cq-btn--ghost:hover { border-color: var(--rust-500); color: var(--rust-600); }
+
+.cq-btn--sm { padding: 6px 14px; font-size: 13px; }
+.cq-btn--lg { padding: 13px 30px; font-size: 16px; }
+.cq-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* 圆形箭头按钮（卡片右下角 CTA） */
+.cq-fab {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--rust-500);
+  color: #fff;
+  box-shadow: var(--shadow-md);
+  border: none;
+}
+.cq-fab--olive { background: var(--olive-500); }
+
+/* ============================================================
+   标签 / 印章
+   ============================================================ */
+.cq-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--paper-2);
+  color: var(--ink-500);
+  border: 1px solid var(--paper-3);
+}
+.cq-tag--rust { background: rgba(200,100,30,0.12); color: var(--rust-600); border-color: rgba(200,100,30,0.3); }
+.cq-tag--olive { background: rgba(122,139,58,0.14); color: var(--olive-600); border-color: rgba(122,139,58,0.3); }
+.cq-tag--danger { background: rgba(179,58,42,0.12); color: var(--danger); border-color: rgba(179,58,42,0.3); }
+
+/* 难度章 F~S */
+.cq-difficulty {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px;
+  border-radius: 6px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: #fff;
+  font-size: 14px;
+}
+
+/* ============================================================
+   条形码 / 邮戳装饰
+   ============================================================ */
+.cq-barcode {
+  height: 28px;
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--ink-700) 0, var(--ink-700) 2px,
+    transparent 2px, transparent 4px,
+    var(--ink-700) 4px, var(--ink-700) 5px,
+    transparent 5px, transparent 8px
+  );
+  opacity: 0.7;
+}
+
+/* ============================================================
+   布局栅格
+   ============================================================ */
+.cq-grid { display: grid; gap: 20px; }
+
+/* ============================================================
+   Element Plus 主题覆盖（后台组件）
+   ============================================================ */
+.el-button--primary {
+  --el-button-bg-color: var(--rust-500);
+  --el-button-border-color: var(--rust-500);
+  --el-button-hover-bg-color: var(--rust-400);
+  --el-button-hover-border-color: var(--rust-400);
+  --el-button-active-bg-color: var(--rust-600);
+}
+.el-table {
+  --el-table-border-color: var(--paper-3);
+  --el-table-header-bg-color: var(--paper-2);
+  --el-table-row-hover-bg-color: var(--paper-2);
+  background: transparent;
+}
+.el-pagination { --el-color-primary: var(--rust-500); }
+.el-tabs { --el-color-primary: var(--rust-500); }
+.el-input__wrapper { border-radius: 10px; }
