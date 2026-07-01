@@ -152,23 +152,26 @@ function reset() {
   gap: 8px;
 }
 .cq-filter__chip {
-  padding: 6px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--paper-3);
-  background: var(--paper-0);
-  color: var(--ink-500);
+  padding: 8px 18px;
+  border: 1.5px solid var(--border-mid);
+  background: var(--bg-card);
+  color: #555;
+  font-family: var(--font-display);
   font-size: 13px;
-  font-weight: 600;
-  transition: all 0.12s ease;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transform: skewX(-12deg);
+  transition: background 0.1s, border-color 0.1s, color 0.1s;
 }
+.cq-filter__chip > * { display: inline-block; transform: skewX(12deg); }
 .cq-filter__chip:hover {
-  border-color: var(--rust-400);
-  color: var(--rust-500);
+  border-color: var(--bg-ink);
+  color: var(--bg-ink);
 }
 .cq-filter__chip.is-active {
-  background: linear-gradient(180deg, var(--rust-400), var(--rust-500));
-  color: #fff7ec;
-  border-color: var(--rust-500);
+  background: var(--lime);
+  color: var(--text-on-lime);
+  border-color: var(--lime);
 }
 .cq-filter__field {
   display: flex;
@@ -187,12 +190,12 @@ function reset() {
 .cq-filter__diff {
   width: 30px;
   height: 30px;
-  border-radius: 8px;
-  border: 1px solid var(--paper-3);
-  background: var(--paper-0);
+  border: 1.5px solid var(--border-mid);
+  background: var(--bg-card);
+  clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
   font-family: var(--font-display);
-  font-weight: 700;
-  color: var(--ink-500);
+  font-weight: 900;
+  color: #555;
   font-size: 13px;
 }
 .cq-filter__diff.is-active {
@@ -205,19 +208,21 @@ function reset() {
 }
 .cq-filter__bounty input {
   width: 70px;
-  padding: 6px 10px;
-  border: 1px solid var(--paper-3);
-  border-radius: 8px;
-  background: var(--paper-0);
+  padding: 7px 10px;
+  border: 1.5px solid var(--border-mid);
+  background: var(--bg-card);
   font-size: 13px;
+  font-family: var(--font-mono);
 }
 .cq-filter__select {
-  padding: 6px 12px;
-  border: 1px solid var(--paper-3);
-  border-radius: 8px;
-  background: var(--paper-0);
+  padding: 7px 12px;
+  border: 1.5px solid var(--border-mid);
+  background: var(--bg-card);
   font-size: 13px;
+  font-weight: 700;
   color: var(--ink-700);
+  font-family: var(--font-display);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 8px) 100%, 8px 100%);
 }
 .cq-filter__reset {
   margin-left: auto;

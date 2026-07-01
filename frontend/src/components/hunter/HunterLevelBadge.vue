@@ -30,19 +30,18 @@ const title = computed(() => props.title || HunterTitles[props.level] || '见习
   gap: 8px;
 }
 .cq-level__chip {
-  background: linear-gradient(150deg, var(--olive-400), var(--olive-600));
-  color: #fff;
+  background: var(--lime);
+  color: var(--text-on-lime);
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 900;
   font-size: 12px;
-  padding: 2px 8px;
-  border-radius: 6px;
+  padding: 3px 9px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 5px) 100%, 0 100%);
   letter-spacing: 0.5px;
-  box-shadow: var(--shadow-sm);
 }
 .cq-level__title {
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--ink-700);
 }
 .cq-level--compact .cq-level__title {

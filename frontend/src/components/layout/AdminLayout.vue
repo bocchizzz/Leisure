@@ -1,46 +1,55 @@
 <template>
-  <div class="cq-admin">
-    <aside class="cq-admin__side">
-      <RouterLink to="/" class="cq-admin__brand">
-        <span class="cq-admin__bunny">🐰</span>
+  <div class="adm">
+    <!-- 固定左侧深色导航 -->
+    <aside class="adm-side">
+      <RouterLink to="/" class="adm-brand">
+        <div class="adm-brand__logo" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M5 3h11l3 3v15H5z" fill="#060606"/>
+            <path d="M8 8h8M8 12h8M8 16h5" stroke="#D4FF00" stroke-width="2" stroke-linecap="square"/>
+          </svg>
+        </div>
         <div>
-          <div class="cq-admin__cn">赏金布</div>
-          <div class="cq-admin__en">ADMIN CONSOLE</div>
+          <div class="adm-brand__name">赏金布</div>
+          <div class="adm-brand__sub">ADMIN CONSOLE · 08</div>
         </div>
       </RouterLink>
 
-      <nav class="cq-admin__nav">
+      <nav class="adm-nav">
         <RouterLink
           v-for="item in ADMIN_NAV"
           :key="item.key"
           :to="item.route"
-          class="cq-admin__navitem"
-          active-class="cq-admin__navitem--active"
+          class="adm-nav__item"
+          active-class="adm-nav__item--active"
         >
           <el-icon><component :is="item.icon" /></el-icon>
           <span>{{ item.label }}</span>
         </RouterLink>
       </nav>
 
-      <RouterLink to="/" class="cq-admin__back">
+      <RouterLink to="/" class="adm-back">
         <el-icon><Back /></el-icon>
-        <span>返回前台</span>
+        返回前台
       </RouterLink>
     </aside>
 
-    <div class="cq-admin__main">
-      <header class="cq-admin__top">
-        <div class="cq-admin__crumb">
-          <span class="cq-eyebrow">公会管理后台</span>
-          <h1 class="cq-admin__title">{{ pageTitle }}</h1>
+    <!-- 主内容 -->
+    <div class="adm-main">
+      <!-- 顶栏 -->
+      <header class="adm-top">
+        <div class="adm-top__left">
+          <span class="adm-top__section cb-label">管理后台</span>
+          <h1 class="adm-top__title">{{ pageTitle }}</h1>
         </div>
-        <div class="cq-admin__user">
-          <span>{{ auth.user?.nickname || auth.user?.username }}</span>
-          <el-tag size="small" type="danger">管理员</el-tag>
+        <div class="adm-top__user">
+          <span class="adm-top__uname">{{ auth.user?.nickname || auth.user?.username }}</span>
+          <span class="cb-badge cb-badge--active">管理员</span>
         </div>
       </header>
 
-      <main class="cq-admin__content">
+      <!-- 页面内容 -->
+      <main class="adm-content">
         <RouterView />
       </main>
     </div>
@@ -59,118 +68,137 @@ const pageTitle = computed(() => (route.meta.title as string) || '管理后台')
 </script>
 
 <style scoped>
-.cq-admin {
+.adm {
   display: flex;
   min-height: 100vh;
 }
-.cq-admin__side {
+
+/* 侧边导航 */
+.adm-side {
   width: 220px;
   flex-shrink: 0;
-  background: linear-gradient(170deg, var(--leather-0), var(--leather-2));
+  background: var(--bg-base);
+  border-right: 1px solid var(--bg-line);
   display: flex;
   flex-direction: column;
-  padding: 22px 14px;
+  padding: 20px 12px;
   position: sticky;
   top: 0;
   height: 100vh;
+  overflow-y: auto;
 }
-.cq-admin__brand {
+.adm-brand {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 4px 8px 22px;
+  padding: 4px 8px 20px;
+  border-bottom: 1px solid var(--bg-line);
+  margin-bottom: 16px;
+  text-decoration: none;
 }
-.cq-admin__bunny {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: linear-gradient(150deg, var(--rust-400), var(--rust-600));
+.adm-brand__logo {
+  width: 36px;
+  height: 36px;
+  background: var(--lime);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+  flex-shrink: 0;
 }
-.cq-admin__cn {
+.adm-brand__name {
   font-family: var(--font-display);
-  font-size: 18px;
-  color: #f5ead5;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--text-white);
   letter-spacing: 1px;
 }
-.cq-admin__en {
+.adm-brand__sub {
   font-size: 9px;
   letter-spacing: 2px;
-  color: var(--rust-400);
+  color: var(--lime);
+  font-family: var(--font-display);
+  font-weight: 700;
 }
-.cq-admin__nav {
+
+.adm-nav {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 4px;
-  flex: 1;
 }
-.cq-admin__navitem {
+.adm-nav__item {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 11px 14px;
-  border-radius: 10px;
-  color: #b9a88f;
-  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
   font-size: 14px;
-  transition: all 0.15s ease;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.12s;
 }
-.cq-admin__navitem:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: #f5ead5;
+.adm-nav__item:hover {
+  background: var(--bg-surface);
+  color: var(--text-white);
 }
-.cq-admin__navitem--active {
-  background: linear-gradient(150deg, var(--rust-400), var(--rust-600));
-  color: #fff7ec;
+.adm-nav__item--active {
+  background: var(--lime);
+  color: var(--text-on-lime);
 }
-.cq-admin__back {
+
+.adm-back {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 14px;
-  color: #8a7559;
+  padding: 10px 12px;
+  color: var(--text-muted);
   font-size: 13px;
-  border-top: 1px solid var(--leather-line);
+  border-top: 1px solid var(--bg-line);
   margin-top: 8px;
   padding-top: 16px;
+  text-decoration: none;
 }
-.cq-admin__back:hover {
-  color: #f5ead5;
-}
+.adm-back:hover { color: var(--text-white); }
 
-.cq-admin__main {
+/* 主内容区 */
+.adm-main {
   flex: 1;
   min-width: 0;
   display: flex;
   flex-direction: column;
+  background: var(--bg-page);
 }
-.cq-admin__top {
+.adm-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 28px;
-  border-bottom: 1px solid var(--paper-3);
-  background: var(--paper-card);
+  padding: 20px 32px;
+  border-bottom: 1px solid var(--border-mid);
+  background: var(--bg-card);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
-.cq-admin__title {
+.adm-top__title {
   margin: 4px 0 0;
   font-family: var(--font-display);
-  font-size: 24px;
-  color: var(--ink-900);
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--text-heading);
+  letter-spacing: -0.5px;
 }
-.cq-admin__user {
+.adm-top__user {
   display: flex;
   align-items: center;
   gap: 10px;
+  font-size: 14px;
   font-weight: 600;
-  color: var(--ink-700);
+  color: var(--text-body);
 }
-.cq-admin__content {
+.adm-content {
   flex: 1;
-  padding: 28px;
+  padding: 32px;
 }
 </style>

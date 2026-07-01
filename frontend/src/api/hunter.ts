@@ -3,6 +3,7 @@
    依据 docs/赏金布_API对接过渡设计.md 6.2
    ============================================================ */
 import { request } from './request'
+import type { PageResult } from '@/types/api'
 import type { HunterProfileVO, LeaderboardEntryVO, CreditLogVO } from '@/types/user'
 
 export const hunterApi = {
@@ -28,7 +29,7 @@ export const hunterApi = {
   },
   /** 信誉变化记录 */
   creditLogs(userId: number, params?: { page?: number; size?: number }) {
-    return request<CreditLogVO[]>({
+    return request<PageResult<CreditLogVO>>({
       url: `/hunters/${userId}/credit-logs`,
       method: 'get',
       params,

@@ -33,6 +33,10 @@ export interface TaskVO {
   applicationCount?: number
   isFavorited?: boolean
   viewCount?: number
+  safetyStatus?: 'PASS' | 'REVIEW' | 'BLOCKED'
+  safetyReason?: string
+  safetyLabels?: string[]
+  safetyScore?: number
   createdAt?: string
   publishedAt?: string
 }

@@ -1,1 +1,0 @@
-import{a3 as r}from"./index-DPXuvvS7.js";const s={create(e){return r({url:"/reviews",method:"post",data:e})},byUser(e){return r({url:`/reviews/user/${e}`,method:"get"})},byTask(e){return r({url:`/reviews/task/${e}`,method:"get"})},byContract(e){return r({url:`/reviews/contract/${e}`,method:"get"})}};export{s as r};

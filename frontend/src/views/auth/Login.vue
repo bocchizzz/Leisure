@@ -1,50 +1,151 @@
-<template>
-  <div class="auth">
-    <!-- 左侧品牌区 -->
-    <div class="auth__brand">
-      <div class="auth__brand-inner">
-        <div class="auth__logo">🐰</div>
-        <h1 class="auth__cn cq-display">赏金布</h1>
-        <div class="auth__en">CAMPUS QUEST</div>
-        <p class="auth__slogan">校园猎人公会任务悬赏平台</p>
-        <p class="auth__quote">“ 接取委托，完成挑战，赢取赏金，声名远扬！ ”</p>
-        <div class="auth__mascot">🕵️</div>
-        <div class="cq-barcode auth__barcode" />
-      </div>
+﻿<template>
+  <div class="auth-page">
+    <!-- 全屏深色背景 -->
+    <div class="auth-page__bg">
+      <!-- 斜切装饰块 -->
+      <div class="auth-page__slant" />
+      <!-- 巨型水印 -->
+      <div class="auth-page__wm cb-watermark">CAMPUS</div>
     </div>
 
-    <!-- 右侧表单 -->
-    <div class="auth__form-wrap">
-      <div class="auth__form cq-card">
-        <div class="cq-eyebrow">★ HUNTER LOGIN</div>
-        <h2 class="auth__title cq-display">猎人登录</h2>
-        <p class="auth__subtitle">登录后开启你的赏金之旅</p>
+    <!-- 中央表单卡 -->
+    <div class="auth-page__wrap scroll-reveal">
+      <div class="auth-card cb-form-panel scroll-reveal scroll-reveal--scale">
+        <!-- 章节标识 -->
+        <div class="auth-card__chapter">
+          <span class="cb-label">CAMPUS BOARD</span>
+          <div class="auth-card__logo" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M5 3h11l3 3v15H5z" fill="#060606"/>
+              <path d="M8 8h8M8 12h8M8 16h5" stroke="#D4FF00" stroke-width="2" stroke-linecap="square"/>
+            </svg>
+          </div>
+        </div>
 
-        <el-form ref="formRef" :model="form" :rules="rules" label-position="top" @submit.prevent>
+        <!-- 标题 -->
+        <h1 class="auth-card__title cb-display">
+          {{ isLogin ? '欢迎回来' : '加入委托网络' }}
+        </h1>
+        <p class="auth-card__sub">
+          {{ isLogin
+            ? '登录后可浏览所有悬赏，认证后接单发单两不误'
+            : '注册账号，认证后就能接单发单' }}
+        </p>
+
+        <!-- Tab 切换 -->
+        <div class="auth-card__tabs">
+          <button
+            class="auth-card__tab"
+            :class="{ 'auth-card__tab--active': isLogin }"
+            @click="isLogin = true"
+          >
+            <span>登录</span>
+          </button>
+          <button
+            class="auth-card__tab"
+            :class="{ 'auth-card__tab--active': !isLogin }"
+            @click="isLogin = false"
+          >
+            <span>注册</span>
+          </button>
+        </div>
+
+        <!-- 登录表单 -->
+        <el-form
+          v-if="isLogin"
+          ref="loginRef"
+          :model="loginForm"
+          :rules="loginRules"
+          label-position="top"
+          @submit.prevent
+        >
           <el-form-item label="用户名" prop="username">
-            <el-input v-model="form.username" placeholder="请输入用户名" size="large" :prefix-icon="User" />
+            <el-input
+              v-model="loginForm.username"
+              placeholder="输入用户名"
+              size="large"
+              :prefix-icon="User"
+            />
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input
-              v-model="form.password"
+              v-model="loginForm.password"
               type="password"
-              placeholder="请输入密码"
+              placeholder="输入密码"
               size="large"
               show-password
               :prefix-icon="Lock"
-              @keyup.enter="onSubmit"
+              @keyup.enter="onLogin"
             />
           </el-form-item>
-
-          <button class="cq-btn cq-btn--primary cq-btn--lg auth__submit" :disabled="loading" @click="onSubmit">
-            {{ loading ? '登录中…' : '登 录' }}
+          <button
+            class="cb-btn cb-btn--primary cb-btn--lg auth-card__submit"
+            :disabled="logging"
+            @click="onLogin"
+          >
+            {{ logging ? '登录中…' : '登录' }}
           </button>
         </el-form>
 
-        <div class="auth__foot">
-          还不是猎人？
-          <RouterLink to="/register" class="auth__link">立即注册 ›</RouterLink>
+        <!-- 注册表单 -->
+        <el-form
+          v-else
+          ref="regRef"
+          :model="regForm"
+          :rules="regRules"
+          label-position="top"
+          @submit.prevent
+        >
+          <el-form-item label="用户名" prop="username">
+            <el-input v-model="regForm.username" placeholder="3-20 位字母或数字" size="large" :prefix-icon="User" />
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input v-model="regForm.password" type="password" placeholder="至少 6 位" size="large" show-password :prefix-icon="Lock" />
+          </el-form-item>
+          <el-form-item label="确认密码" prop="confirmPassword">
+            <el-input v-model="regForm.confirmPassword" type="password" placeholder="再输一次" size="large" show-password :prefix-icon="Lock" />
+          </el-form-item>
+          <el-form-item label="昵称（可选）" prop="nickname">
+            <el-input v-model="regForm.nickname" placeholder="显示在委托板上的名字" size="large" />
+          </el-form-item>
+          <button
+            class="cb-btn cb-btn--primary cb-btn--lg auth-card__submit"
+            :disabled="registering"
+            @click="onRegister"
+          >
+            {{ registering ? '注册中…' : '注册并登录' }}
+          </button>
+        </el-form>
+
+        <!-- 底部权益说明 -->
+        <div class="auth-card__tips">
+          <div class="auth-card__tip" v-for="tip in tips" :key="tip.text">
+            <span class="cb-badge cb-badge--dark">{{ tip.label }}</span>
+            <span>{{ tip.text }}</span>
+          </div>
         </div>
+      </div>
+
+      <!-- 右侧说明面板 -->
+      <div class="auth-side scroll-reveal scroll-reveal--right">
+        <div class="auth-side__header cb-chapter">
+          <span class="cb-chapter__num">01</span>
+          <span class="cb-chapter__cn">身份准入</span>
+          <span class="cb-chapter__en">ACCESS CONTROL</span>
+        </div>
+        <h2 class="auth-side__title cb-display">
+          先确认<br />身份，<br />再接<br />委托。
+        </h2>
+        <p class="auth-side__desc">
+          校园认证是平台的信任基础。认证后你才能发布委托、接单、提交履约证据。
+        </p>
+        <div class="auth-side__steps">
+          <div v-for="(step, i) in steps" :key="i" class="auth-side__step">
+            <span class="auth-side__step-num">0{{ i + 1 }}</span>
+            <span>{{ step }}</span>
+          </div>
+        </div>
+        <img class="auth-side__mascot" :src="gentleFigure" alt="" aria-hidden="true" />
       </div>
     </div>
   </div>
@@ -57,141 +158,290 @@ import { User, Lock } from '@element-plus/icons-vue'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
 import { useAuthStore } from '@/stores/auth'
 import { useMessageStore } from '@/stores/message'
+import { MASCOT_MAP } from '@/assets'
+import { useScrollReveal } from '@/composables/useScrollReveal'
+
+useScrollReveal()
+
+const gentleFigure = MASCOT_MAP.gentle.figure
 
 const route = useRoute()
 const router = useRouter()
 const auth = useAuthStore()
 const messageStore = useMessageStore()
 
-const formRef = ref<FormInstance>()
-const loading = ref(false)
-const form = reactive({ username: '', password: '' })
+const isLogin = ref(true)
 
-const rules: FormRules = {
+/* ——登录—— */
+const loginRef = ref<FormInstance>()
+const logging = ref(false)
+const loginForm = reactive({ username: '', password: '' })
+const loginRules: FormRules = {
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
 }
-
-async function onSubmit() {
-  if (!formRef.value) return
-  const valid = await formRef.value.validate().catch(() => false)
-  if (!valid) return
-
-  loading.value = true
+async function onLogin() {
+  if (!await loginRef.value?.validate().catch(() => false)) return
+  logging.value = true
   try {
-    await auth.login({ ...form })
+    await auth.login({ ...loginForm })
     messageStore.startPolling()
-    ElMessage.success('欢迎回来，猎人！')
-    const redirect = (route.query.redirect as string) || '/'
-    router.push(redirect)
-  } catch {
-    // 错误已由拦截器提示
+    ElMessage.success('已上线，去接单吧。')
+    router.push((route.query.redirect as string) || '/')
   } finally {
-    loading.value = false
+    logging.value = false
   }
 }
+
+/* ——注册—— */
+const regRef = ref<FormInstance>()
+const registering = ref(false)
+const regForm = reactive({ username: '', password: '', confirmPassword: '', nickname: '' })
+const regRules: FormRules = {
+  username: [
+    { required: true, message: '请输入用户名', trigger: 'blur' },
+    { min: 3, max: 20, message: '3-20 位字符', trigger: 'blur' },
+  ],
+  password: [
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 6, message: '至少 6 位', trigger: 'blur' },
+  ],
+  confirmPassword: [
+    { required: true, message: '请确认密码', trigger: 'blur' },
+    {
+      validator: (_: unknown, value: string, cb: (e?: Error) => void) => {
+        if (value !== regForm.password) cb(new Error('两次密码不一致'))
+        else cb()
+      },
+      trigger: 'blur',
+    },
+  ],
+}
+async function onRegister() {
+  if (!await regRef.value?.validate().catch(() => false)) return
+  registering.value = true
+  try {
+    await auth.register({
+      username: regForm.username,
+      password: regForm.password,
+      nickname: regForm.nickname || undefined,
+    })
+    ElMessage.success('注册成功，先搞定认证吧')
+    await auth.login({ username: regForm.username, password: regForm.password })
+    messageStore.startPolling()
+    router.push('/certification')
+  } finally {
+    registering.value = false
+  }
+}
+
+const tips = [
+  { label: '游客',   text: '随便逛逛，看看都有什么单' },
+  { label: '已登录', text: '收藏、评论，标记感兴趣的单' },
+  { label: '已认证', text: '发单、接单、参与仲裁，全开' },
+]
+const steps = [
+  '注册账号',
+  '提交学生证做认证',
+  '审核通过，全权限解锁',
+  '发单接单，随时出发',
+]
 </script>
 
 <style scoped>
-.auth {
-  display: flex;
+.auth-page {
   min-height: 100vh;
-}
-
-/* 左侧品牌 */
-.auth__brand {
-  width: 46%;
-  background: linear-gradient(165deg, var(--leather-0), var(--leather-2));
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+  padding: calc(var(--nav-h) + 40px) 24px 60px;
   overflow: hidden;
 }
-.auth__brand-inner {
-  text-align: center;
-  padding: 40px;
-  position: relative;
-  z-index: 1;
+.auth-page__bg {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-base);
+  z-index: 0;
 }
-.auth__logo {
-  font-size: 60px;
-  margin-bottom: 12px;
+.auth-page__slant {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 55%;
+  height: 100%;
+  background: var(--bg-surface);
+  clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%);
 }
-.auth__cn {
-  font-size: 52px;
-  color: #f5ead5;
-  margin: 0;
-}
-.auth__en {
-  font-family: var(--font-display);
-  letter-spacing: 6px;
-  color: var(--rust-400);
-  font-size: 14px;
-  margin-bottom: 24px;
-}
-.auth__slogan {
-  color: #d8c6a8;
-  font-size: 17px;
-  font-weight: 600;
-  margin: 0 0 8px;
-}
-.auth__quote {
-  color: var(--rust-400);
-  font-style: italic;
-  font-size: 14px;
-}
-.auth__mascot {
-  font-size: 120px;
-  margin-top: 20px;
-  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.4));
-}
-.auth__barcode {
-  margin-top: 30px;
-  opacity: 0.3;
-  filter: invert(1);
+.auth-page__wm {
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.04);
+  font-size: clamp(100px, 15vw, 200px);
 }
 
-/* 右侧表单 */
-.auth__form-wrap {
+.auth-page__wrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 56px;
+  align-items: flex-start;
+  max-width: 1040px;
+  width: 100%;
+}
+
+/* 表单卡 */
+.auth-card {
   flex: 1;
+  min-width: 0;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+}
+.auth-card__chapter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.auth-card__logo {
+  font-size: 24px;
+  width: 42px;
+  height: 42px;
+  background: var(--lime);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px;
+  clip-path: var(--clip-br);
 }
-.auth__form {
-  width: 100%;
-  max-width: 400px;
-  padding: 40px;
+.auth-card__title {
+  font-size: 40px;
+  margin: 0 0 6px;
+  color: var(--text-heading);
 }
-.auth__title {
-  font-size: 32px;
-  margin: 6px 0 4px;
-}
-.auth__subtitle {
-  color: var(--ink-400);
-  margin: 0 0 28px;
+.auth-card__sub {
   font-size: 14px;
+  color: var(--text-muted);
+  margin: 0 0 24px;
+  line-height: 1.6;
 }
-.auth__submit {
+.auth-card__tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 24px;
+  width: fit-content;
+}
+.auth-card__tab {
+  padding: 9px 26px;
+  border: 1.5px solid var(--border-mid);
+  background: var(--bg-card);
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transform: skewX(-12deg);
+  transition: background 0.1s, color 0.1s, border-color 0.1s;
+}
+.auth-card__tab > span { display: inline-block; transform: skewX(12deg); }
+.auth-card__tab--active {
+  background: var(--bg-ink);
+  color: var(--lime);
+  border-color: var(--bg-ink);
+}
+.auth-card__submit {
   width: 100%;
   margin-top: 8px;
 }
-.auth__foot {
-  margin-top: 24px;
-  text-align: center;
-  font-size: 14px;
-  color: var(--ink-400);
+.auth-card__tips {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--border-mid);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.auth__link {
-  color: var(--rust-500);
-  font-weight: 600;
+.auth-card__tip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-muted);
 }
 
-@media (max-width: 860px) {
-  .auth__brand {
-    display: none;
-  }
+/* 右侧说明 */
+.auth-side {
+  width: 360px;
+  flex-shrink: 0;
+  padding-top: 10px;
+  position: relative;
+  min-height: 510px;
+}
+.auth-side__mascot {
+  position: absolute;
+  right: -72px;
+  bottom: -34px;
+  width: 168px;
+  height: auto;
+  opacity: 0.9;
+  pointer-events: none;
+  filter: drop-shadow(6px 6px 0 rgba(0,0,0,0.4));
+  z-index: 0;
+}
+.auth-side__header {
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+.auth-side__title {
+  font-size: 52px;
+  color: var(--text-white);
+  margin: 0 0 20px;
+  line-height: 1.1;
+  position: relative;
+  z-index: 1;
+  max-width: 230px;
+}
+.auth-side__desc {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0 0 28px;
+  position: relative;
+  z-index: 1;
+  max-width: 230px;
+}
+.auth-side__steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+  max-width: 230px;
+}
+.auth-side__step {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+  color: #fff;
+}
+.auth-side__step-num {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--lime);
+  width: 30px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .auth-page__wrap { flex-direction: column; }
+  .auth-side { width: 100%; display: none; }
 }
 </style>

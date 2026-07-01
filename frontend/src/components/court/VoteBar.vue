@@ -30,25 +30,25 @@ const rows = computed(() => [
     key: 'SUPPORT_PUBLISHER',
     label: CourtVoteOptionName.SUPPORT_PUBLISHER,
     rate: props.stats?.supportPublisherRate ?? 0,
-    color: 'linear-gradient(90deg, #2952A0, #4a72c0)',
+    color: '#3A8FFF',
   },
   {
     key: 'SUPPORT_HUNTER',
     label: CourtVoteOptionName.SUPPORT_HUNTER,
     rate: props.stats?.supportHunterRate ?? 0,
-    color: 'linear-gradient(90deg, var(--rust-500), var(--rust-400))',
+    color: '#FF6B1A',
   },
   {
     key: 'INSUFFICIENT_EVIDENCE',
     label: CourtVoteOptionName.INSUFFICIENT_EVIDENCE,
     rate: props.stats?.insufficientEvidenceRate ?? 0,
-    color: 'linear-gradient(90deg, #8A7559, #a8957a)',
+    color: '#8A8A8A',
   },
   {
     key: 'SUGGEST_SETTLEMENT',
     label: CourtVoteOptionName.SUGGEST_SETTLEMENT,
     rate: props.stats?.settlementRate ?? 0,
-    color: 'linear-gradient(90deg, var(--olive-500), var(--olive-400))',
+    color: '#D4FF00',
   },
 ])
 
@@ -79,15 +79,15 @@ function pct(rate: number): string {
   color: var(--ink-900);
 }
 .cq-votebar__track {
-  height: 10px;
-  background: var(--paper-2);
-  border-radius: 999px;
+  height: 12px;
+  background: var(--bg-concrete);
+  border: 1px solid var(--border-mid);
   overflow: hidden;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
 }
 .cq-votebar__fill {
   height: 100%;
-  border-radius: 999px;
-  transition: width 0.4s ease;
+  transition: width 0.2s linear;
 }
 .cq-votebar__total {
   font-size: 12px;

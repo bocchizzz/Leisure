@@ -29,6 +29,36 @@ export interface RiskAssessmentResult {
   suggestions: string[]
 }
 
+/** 任务封面生成请求 */
+export interface TaskCoverImageRequest {
+  title?: string
+  description?: string
+  category?: string
+  referenceImageUrl?: string
+}
+
+/** 任务封面生成响应 */
+export interface TaskCoverImageResult {
+  imageUrl: string
+  prompt?: string
+  source?: string
+}
+
+/** 邦布头像生成请求 */
+export interface BangbooAvatarRequest {
+  referenceImageUrl: string
+  mascotKey?: string
+  seed?: string
+}
+
+/** 邦布头像生成响应 */
+export interface BangbooAvatarResult {
+  imageUrl: string
+  prompt?: string
+  source?: string
+  mascotKey?: string
+}
+
 /** 案件摘要响应 */
 export interface CourtSummaryResult {
   summary: string
@@ -43,7 +73,22 @@ export interface CourtRoastResult {
   style?: string
 }
 
+/** 聊天响应 */
+export interface ChatResponse {
+  reply: string
+  action?: string
+  data?: unknown
+}
+
 export const aiApi = {
+  /** 智能布对话 */
+  chat(data: { message: string; context?: string }) {
+    return request<ChatResponse>({
+      url: '/ai/chat',
+      method: 'post',
+      data,
+    })
+  },
   /** 任务拆解 */
   breakdown(rawText: string) {
     return request<TaskBreakdownResult>({
@@ -64,6 +109,22 @@ export const aiApi = {
   riskAssessment(data: { description?: string; rawText?: string }) {
     return request<RiskAssessmentResult>({
       url: '/ai/tasks/risk-assessment',
+      method: 'post',
+      data,
+    })
+  },
+  /** 任务封面生成 */
+  coverImage(data: TaskCoverImageRequest) {
+    return request<TaskCoverImageResult>({
+      url: '/ai/tasks/cover-image',
+      method: 'post',
+      data,
+    })
+  },
+  /** 个人档案邦布头像生成 */
+  bangbooAvatar(data: BangbooAvatarRequest) {
+    return request<BangbooAvatarResult>({
+      url: '/ai/profile/bangboo-avatar',
       method: 'post',
       data,
     })

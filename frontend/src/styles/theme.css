@@ -1,61 +1,89 @@
-/* ============================================================
-   赏金布 Campus Quest — 复古西部赏金猎人主题
-   设计基准：docs/最终样式.png
+﻿/* ============================================================
+   赏金布 Campus Board — ZZZ 街头潮流主题 v2.0
+   设计规范：docs/ZZZ_DesignSpec.md（必读，每次设计前对照）
+   视觉母题：绝区零官网 × 街头工业 × 校园广播信号
    ============================================================ */
 
 :root {
-  /* —— 羊皮纸背景 —— */
-  --paper-0: #F3ECD9;          /* 最浅，卡片高光 */
-  --paper-1: #EDE4CE;          /* 主背景 */
-  --paper-2: #E4D8BC;          /* 次级背景/分隔 */
-  --paper-3: #D8C8A4;          /* 描边、虚线 */
-  --paper-card: #F1E9D4;       /* 卡片底 */
+  /* ── 深色底（顶导航 / Hero / 强调区块 / 列表区）── */
+  --bg-base:    #050505;   /* 最深黑 — Hero / 页脚 */
+  --bg-ink:     #0F0F0F;   /* 次深黑 — 卡片暗区 / 工具栏 */
+  --bg-surface: #1A1A1A;   /* 表面黑 — 卡片背景 / 面板 */
+  --bg-panel:   #222222;   /* 面板灰 — 输入框 / 下拉 */
+  --bg-line:    #2E2E2E;   /* 线灰   — 边框 / 分隔 */
 
-  /* —— 皮革侧边栏 —— */
-  --leather-0: #3A2615;
-  --leather-1: #2A1B0E;
-  --leather-2: #1C1108;
-  --leather-line: #4A301B;
+  /* ── 浅色底（业务内容区）── */
+  --bg-page:     #EEECE8;  /* 工业暖米白（ZZZ 官网浅色区特征色，非普通浅灰） */
+  --bg-card:     #FFFFFF;  /* 白卡（浅色区卡片） */
+  --bg-concrete: #E0DED9;  /* 混凝土灰 — hover / 选中背景 */
 
-  /* —— 锈橙主强调 —— */
-  --rust-400: #E8821E;
-  --rust-500: #C8641E;
-  --rust-600: #A84E14;
-  --rust-glow: rgba(200, 100, 30, 0.28);
+  /* ── 荧光黄绿（唯一主强调色）── */
+  --lime:      #D4FF00;    /* 主强调（ZZZ 标准） */
+  --lime-2:    #BBEE00;    /* hover 态略深 */
+  --lime-soft: #E6FF4A;    /* 弱强调 */
+  --lime-dark: #8CAA00;    /* 极暗，用于 hover 后深色 */
 
-  /* —— 橄榄军绿次强调 —— */
-  --olive-400: #93A24A;
-  --olive-500: #7A8B3A;
-  --olive-600: #5E6C2A;
+  /* ── 状态色 ── */
+  --orange: #FF6B1A;  /* 紧急/警告 */
+  --blue:   #3A8FFF;  /* 信息（唯一允许的蓝） */
+  --red:    #E8281A;  /* 危险 */
+  --green:  #2DC95E;  /* 成功 */
 
-  /* —— 墨色文字 —— */
-  --ink-900: #2A1B0E;
-  --ink-700: #3A2818;
-  --ink-500: #6B5641;
-  --ink-400: #8A7559;
-  --ink-300: #A8957A;
+  /* ── 文字 ── */
+  --text-white:   #FFFFFF;
+  --text-on-lime: #060606;  /* lime 底上的文字 */
+  --text-heading: #111111;  /* 浅色背景上标题 */
+  --text-body:    #2A2A2A;  /* 浅色背景正文 */
+  --text-muted:   #8A8A8A;
+  --text-faint:   #BBBBBB;
 
-  /* —— 语义色 —— */
-  --success: #5E8C3A;
-  --warning: #D6911E;
-  --danger: #B33A2A;
-  --info: #6B7A8C;
+  /* ── 描边 ── */
+  --border-dark:   #2E2E2E;  /* 深色区卡片边框 */
+  --border-mid:    #D4D2CD;  /* 浅色区输入框边框 */
+  --border-strong: #111111;  /* 浅色区卡片硬边框 */
 
-  /* —— 阴影 —— */
-  --shadow-sm: 0 1px 3px rgba(58, 40, 24, 0.12);
-  --shadow-md: 0 4px 14px rgba(58, 40, 24, 0.16);
-  --shadow-lg: 0 10px 30px rgba(58, 40, 24, 0.22);
-  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  /* ── 圆角（ZZZ 风格几乎不用圆角）──
+     仅保留极小值用于导航路由胶囊等极少例外
+     ⚠ 卡片、按钮、容器一律禁止使用圆角，改用 clip-path ──*/
+  --radius-xs:   4px;   /* 极小，仅用于 badge */
+  --radius-pill: 999px; /* 胶囊，仅用于导航当前路由指示 */
 
-  /* —— 圆角 —— */
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
+  /* ── 阴影（ZZZ 风格：硬偏移无模糊）── */
+  --shadow-hard:  4px 5px 0 #000000;         /* 卡片硬阴影（hover 用） */
+  --shadow-hard-lg: 6px 8px 0 #000000;       /* 大卡片硬阴影 */
+  --shadow-card:  0 2px 0 rgba(0,0,0,0.25);  /* 轻微立体感 */
+  /* ⚠ 不允许使用大 blur 软阴影作为主视觉效果 */
 
-  /* —— 字体 —— */
-  --font-display: 'Oswald', 'Anton', 'Impact', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-  --font-body: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  /* ── 导航高度 ── */
+  --nav-h: 64px;
+
+  /* ── 斜切路径预设（核心几何语言）── */
+  --clip-br:      polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 28px) 100%, 0 100%);
+  --clip-bl:      polygon(0 0, 100% 0, 100% 100%, 28px 100%, 0 calc(100% - 18px));
+  --clip-tr:      polygon(28px 0, 100% 0, 100% 18px, 100% 100%, 0 100%, 0 0);
+  --clip-tl:      polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 18px);
+  --clip-both:    polygon(18px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 18px);
+  --clip-btn:     polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 12px) 100%, 0 100%);
+  --clip-badge-r: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%);
+  --clip-section: polygon(0 20px, 100% 0, 100% 100%, 0 100%);
+
+  /* ── 字体 ── */
+  --font-display: 'Oswald', 'Barlow Condensed', 'Anton', 'Impact', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-body:    'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono:    'JetBrains Mono', 'Roboto Mono', 'Courier New', Courier, monospace;
+
+  /* ── 动效时长（ZZZ v3.0 机械精准节奏系统）── */
+  --dur-snap:    0.1s;    /* 机械 snap — hover 底色、border 颜色 */
+  --dur-fast:    0.18s;   /* 快速交互 — 按钮按下、卡片 hover 位移 */
+  --dur-normal:  0.28s;   /* 标准动效 — 弹窗、菜单 */
+  --dur-reveal:  0.38s;   /* 入场揭示 — 卡片/区块 scroll reveal */
+  --dur-page:    0.45s;   /* 页面级 — 路由切换 */
+
+  /* ── 动效曲线 ── */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);      /* 强出，有弹性感 */
+  --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);       /* 强入，干脆退场 */
+  --ease-io:     cubic-bezier(0.45, 0, 0.55, 1);      /* 对称，平滑状态切换 */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);  /* 弹簧感，hover 弹起 */
 }
 
 /* ============================================================
@@ -71,12 +99,8 @@ html, body, #app {
 
 body {
   font-family: var(--font-body);
-  color: var(--ink-700);
-  background-color: var(--paper-1);
-  background-image:
-    radial-gradient(circle at 20% 30%, rgba(180, 150, 100, 0.10), transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(150, 120, 80, 0.08), transparent 45%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  color: var(--text-body);
+  background-color: var(--bg-page);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -86,172 +110,1202 @@ button { font-family: inherit; cursor: pointer; }
 ul { list-style: none; margin: 0; padding: 0; }
 
 /* —— 滚动条 —— */
-::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: var(--paper-3);
-  border-radius: 6px;
-  border: 2px solid var(--paper-1);
+  background: var(--bg-concrete);
+  border-radius: 4px;
+  border: 2px solid var(--bg-page);
 }
-::-webkit-scrollbar-thumb:hover { background: var(--ink-300); }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
 
 /* ============================================================
-   排版工具类
+   排版工具
    ============================================================ */
-.cq-display {
+
+/* 超大水印字（每个分区背景大字） */
+.cb-watermark {
   font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  font-weight: 900;
+  font-size: clamp(80px, 12vw, 160px);
+  letter-spacing: -0.02em;
   text-transform: uppercase;
-  color: var(--ink-900);
-  line-height: 0.95;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.07);
+  line-height: 0.85;
+  user-select: none;
+  pointer-events: none;
 }
-.cq-eyebrow {
+
+/* 章节编号块 */
+.cb-chapter {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  background: var(--lime);
+  clip-path: var(--clip-br);
+}
+.cb-chapter__num {
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 0.85;
+  color: var(--text-on-lime);
+  letter-spacing: -1px;
+}
+.cb-chapter__cn {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-on-lime);
+  letter-spacing: 0.5px;
+}
+.cb-chapter__en {
+  font-family: var(--font-display);
+  font-size: 10px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: var(--ink-400);
+  color: var(--bg-ink);
+  opacity: 0.7;
   font-weight: 600;
 }
-.cq-muted { color: var(--ink-400); }
+
+/* 斜切装饰块 */
+.cb-slant {
+  position: absolute;
+  background: var(--bg-ink);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 40px), 0 100%);
+}
+
+/* 标题系 */
+.cb-display {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+}
+.cb-label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-muted);
+}
 
 /* ============================================================
-   卡片
+   卡片（街头传单 / 校园公告单）
    ============================================================ */
-.cq-card {
-  background: var(--paper-card);
-  border: 1px solid var(--paper-3);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-sm);
+.cb-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
   position: relative;
 }
-.cq-card--dashed {
-  border-style: dashed;
-  border-color: var(--ink-300);
+.cb-card--dark {
+  background: var(--bg-surface);
+  border-color: var(--border-dark);
 }
-.cq-card--raised { box-shadow: var(--shadow-md); }
+.cb-card--lime {
+  background: var(--lime);
+  border-color: var(--lime-dark);
+}
+.cb-card--ghost {
+  background: transparent;
+  border: 1.5px dashed var(--border-mid);
+}
+.cb-card--raised {
+  box-shadow: var(--shadow-float);
+}
 
 /* ============================================================
-   按钮（自建，承载羊皮纸/锈橙美学）
+   按钮
    ============================================================ */
-.cq-btn {
+.cb-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 10px 22px;
-  border: none;
-  border-radius: 999px;
+  padding: 11px 22px;
+  border: 1.5px solid transparent;
   font-weight: 700;
   font-size: 14px;
-  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+  font-family: inherit;
+  cursor: pointer;
   white-space: nowrap;
-}
-.cq-btn:active { transform: translateY(1px); }
-
-.cq-btn--primary {
-  background: linear-gradient(180deg, var(--rust-400), var(--rust-500));
-  color: #fff7ec;
-  box-shadow: 0 4px 0 var(--rust-600), var(--shadow-md);
-}
-.cq-btn--primary:hover { background: linear-gradient(180deg, #f08e2a, var(--rust-400)); }
-
-.cq-btn--olive {
-  background: linear-gradient(180deg, var(--olive-400), var(--olive-500));
-  color: #f7f4e4;
-  box-shadow: 0 4px 0 var(--olive-600), var(--shadow-md);
+  transition: background 0.1s, color 0.1s, border-color 0.1s;
+  border-radius: var(--radius-sm);
 }
 
-.cq-btn--ghost {
+/* 主按钮：黑底白字 */
+.cb-btn--primary {
+  background: var(--bg-ink);
+  color: var(--text-white);
+  border-color: var(--bg-ink);
+}
+.cb-btn--primary:hover {
+  background: var(--bg-base);
+}
+
+/* 荧光按钮：lime底黑字（CTA / 关键操作） */
+.cb-btn--accent {
+  background: var(--lime);
+  color: var(--text-on-lime);
+  border-color: var(--lime);
+}
+.cb-btn--accent:hover {
+  background: var(--lime-2);
+  border-color: var(--lime-2);
+}
+
+/* 线框按钮 */
+.cb-btn--outline {
   background: transparent;
-  color: var(--ink-700);
-  border: 1.5px solid var(--paper-3);
+  color: var(--text-heading);
+  border-color: var(--border-strong);
 }
-.cq-btn--ghost:hover { border-color: var(--rust-500); color: var(--rust-600); }
+.cb-btn--outline:hover {
+  background: var(--bg-ink);
+  color: var(--text-white);
+  border-color: var(--bg-ink);
+}
 
-.cq-btn--sm { padding: 6px 14px; font-size: 13px; }
-.cq-btn--lg { padding: 13px 30px; font-size: 16px; }
-.cq-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+/* 幽灵按钮（浅色背景用） */
+.cb-btn--ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border-color: var(--border-mid);
+}
+.cb-btn--ghost:hover {
+  border-color: var(--bg-ink);
+  color: var(--text-heading);
+}
 
-/* 圆形箭头按钮（卡片右下角 CTA） */
-.cq-fab {
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  display: inline-flex; align-items: center; justify-content: center;
-  background: var(--rust-500);
-  color: #fff;
-  box-shadow: var(--shadow-md);
+.cb-btn--sm { padding: 7px 14px; font-size: 13px; border-radius: var(--radius-xs); }
+.cb-btn--lg { padding: 14px 32px; font-size: 16px; }
+.cb-btn--pill { border-radius: 999px; }
+.cb-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* 切角 CTA（配合 .cb-chapter 风格） */
+.cb-btn--cut {
+  clip-path: var(--clip-br);
+  border-radius: 0;
   border: none;
 }
-.cq-fab--olive { background: var(--olive-500); }
 
 /* ============================================================
-   标签 / 印章
+   状态贴纸（StatusBadge）
    ============================================================ */
-.cq-tag {
+.cb-badge {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   padding: 3px 10px;
-  border-radius: 999px;
   font-size: 12px;
-  font-weight: 600;
-  background: var(--paper-2);
-  color: var(--ink-500);
-  border: 1px solid var(--paper-3);
-}
-.cq-tag--rust { background: rgba(200,100,30,0.12); color: var(--rust-600); border-color: rgba(200,100,30,0.3); }
-.cq-tag--olive { background: rgba(122,139,58,0.14); color: var(--olive-600); border-color: rgba(122,139,58,0.3); }
-.cq-tag--danger { background: rgba(179,58,42,0.12); color: var(--danger); border-color: rgba(179,58,42,0.3); }
-
-/* 难度章 F~S */
-.cq-difficulty {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 26px; height: 26px;
-  border-radius: 6px;
-  font-family: var(--font-display);
   font-weight: 700;
-  color: #fff;
+  border-radius: var(--radius-xs);
+  letter-spacing: 0.3px;
+}
+.cb-badge--default  { background: var(--bg-concrete); color: var(--text-muted); }
+.cb-badge--active   { background: var(--lime); color: var(--text-on-lime); }
+.cb-badge--urgent   { background: var(--orange); color: #fff; }
+.cb-badge--done     { background: var(--bg-concrete); color: var(--text-muted); text-decoration: line-through; }
+.cb-badge--dispute  { background: var(--red); color: #fff; }
+.cb-badge--info     { background: var(--blue); color: #fff; }
+.cb-badge--dark     { background: var(--bg-ink); color: var(--text-white); }
+.cb-badge--outline  { background: transparent; border: 1px solid var(--border-strong); color: var(--text-heading); }
+
+/* ============================================================
+   StreetTabs（黑色长胶囊分类切换）
+   ============================================================ */
+.cb-tabs {
+  display: inline-flex;
+  background: var(--bg-ink);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 2px;
+}
+.cb-tabs__item {
+  padding: 8px 18px;
+  border-radius: 999px;
   font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+  border: none;
+  background: transparent;
+  transition: all 0.12s;
+  cursor: pointer;
+}
+.cb-tabs__item:hover { color: var(--text-white); }
+.cb-tabs__item--active {
+  background: var(--bg-card);
+  color: var(--text-heading);
+}
+.cb-tabs__item--lime {
+  background: var(--lime);
+  color: var(--text-on-lime);
 }
 
 /* ============================================================
-   条形码 / 邮戳装饰
+   胶片分割线装饰
    ============================================================ */
-.cq-barcode {
+.cb-filmstrip {
   height: 28px;
   background-image: repeating-linear-gradient(
     90deg,
-    var(--ink-700) 0, var(--ink-700) 2px,
-    transparent 2px, transparent 4px,
-    var(--ink-700) 4px, var(--ink-700) 5px,
-    transparent 5px, transparent 8px
+    transparent 0, transparent 12px,
+    var(--bg-ink) 12px, var(--bg-ink) 20px,
+    transparent 20px, transparent 32px,
+    var(--border-dark) 32px, var(--border-dark) 34px
   );
-  opacity: 0.7;
+  opacity: 0.15;
+}
+
+/* 斜纹工业纹理 */
+.cb-hazard {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0, transparent 6px,
+    rgba(0,0,0,0.06) 6px, rgba(0,0,0,0.06) 8px
+  );
 }
 
 /* ============================================================
-   布局栅格
+   表单面板（FormPanel）
    ============================================================ */
-.cq-grid { display: grid; gap: 20px; }
+.cb-form-panel {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+}
 
 /* ============================================================
-   Element Plus 主题覆盖（后台组件）
+   Element Plus 覆盖（保持业务组件可用）
    ============================================================ */
 .el-button--primary {
-  --el-button-bg-color: var(--rust-500);
-  --el-button-border-color: var(--rust-500);
-  --el-button-hover-bg-color: var(--rust-400);
-  --el-button-hover-border-color: var(--rust-400);
-  --el-button-active-bg-color: var(--rust-600);
+  --el-button-bg-color: var(--bg-ink);
+  --el-button-border-color: var(--bg-ink);
+  --el-button-hover-bg-color: var(--bg-surface);
+  --el-button-hover-border-color: var(--bg-surface);
+  --el-button-active-bg-color: var(--bg-base);
 }
 .el-table {
-  --el-table-border-color: var(--paper-3);
-  --el-table-header-bg-color: var(--paper-2);
-  --el-table-row-hover-bg-color: var(--paper-2);
+  --el-table-border-color: var(--border-mid);
+  --el-table-header-bg-color: var(--bg-concrete);
+  --el-table-row-hover-bg-color: #F8F8F8;
   background: transparent;
 }
-.el-pagination { --el-color-primary: var(--rust-500); }
-.el-tabs { --el-color-primary: var(--rust-500); }
-.el-input__wrapper { border-radius: 10px; }
+.el-pagination { --el-color-primary: var(--bg-ink); }
+.el-tabs { --el-color-primary: var(--bg-ink); }
+.el-input__wrapper { border-radius: var(--radius-sm); }
+
+/* ============================================================
+   旧 cq- 工具类向新系统的兼容桥
+   （让已生成的页面不至于完全崩坏，逐步迁移中）
+   ============================================================ */
+.cq-card     { @apply-compat: cb-card; background: var(--bg-card); border: 1.5px solid var(--border-strong); border-radius: var(--radius-md); box-shadow: var(--shadow-card); position: relative; }
+.cq-btn      { @apply-compat: cb-btn; }
+.cq-btn--primary { background: var(--bg-ink); color: #fff; border: 1.5px solid var(--bg-ink); padding: 11px 22px; border-radius: var(--radius-sm); font-weight: 700; cursor: pointer; transition: background 0.1s; }
+.cq-btn--primary:hover { background: var(--bg-base); }
+.cq-btn--ghost { background: transparent; color: var(--text-muted); border: 1.5px solid var(--border-mid); padding: 11px 22px; border-radius: var(--radius-sm); font-weight: 700; cursor: pointer; }
+.cq-btn--ghost:hover { border-color: var(--bg-ink); color: var(--text-heading); }
+.cq-btn--olive { background: var(--lime-dark); color: #fff; border: none; padding: 11px 22px; border-radius: var(--radius-sm); font-weight: 700; cursor: pointer; }
+.cq-btn--sm { padding: 7px 14px; font-size: 13px; border-radius: var(--radius-xs); }
+.cq-btn--lg { padding: 14px 32px; font-size: 16px; }
+.cq-tag { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: var(--radius-xs); font-size: 12px; font-weight: 700; background: var(--bg-concrete); color: var(--text-muted); }
+.cq-tag--rust   { background: #fff3e0; color: var(--orange); }
+.cq-tag--olive  { background: #f0fce0; color: var(--lime-dark); }
+.cq-tag--danger { background: #fff0ee; color: var(--red); }
+.cq-display { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 0.9; }
+.cq-eyebrow { font-family: var(--font-display); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; color: var(--text-muted); }
+.cq-muted   { color: var(--text-muted); }
+.cq-card--raised { box-shadow: var(--shadow-float); }
+.cq-card--dashed { border-style: dashed; border-color: var(--border-mid); }
+.cq-fab { width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: var(--bg-ink); color: #fff; border: none; cursor: pointer; }
+.cq-barcode { height: 24px; background-image: repeating-linear-gradient(90deg, var(--bg-ink) 0, var(--bg-ink) 2px, transparent 2px, transparent 4px); opacity: 0.12; }
+.cq-difficulty { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%); font-family: var(--font-display); font-weight: 900; color: #fff; font-size: 14px; }
+
+/* ============================================================
+   旧变量名兼容层（确保已生成的 ~20 个页面不崩坏）
+   映射到新 token，视觉上已切换为街头委托板风格
+   ============================================================ */
+:root {
+  /* 背景兼容 */
+  --paper-0:    var(--bg-card);
+  --paper-1:    var(--bg-page);
+  --paper-2:    var(--bg-concrete);
+  --paper-3:    var(--border-mid);
+  --paper-card: var(--bg-card);
+
+  /* 皮革侧边栏兼容（已废弃侧边栏，映射为深色表面） */
+  --leather-0:    var(--bg-surface);
+  --leather-1:    var(--bg-panel);
+  --leather-2:    var(--bg-base);
+  --leather-line: var(--bg-line);
+
+  /* 锈橙兼容（已替换为黑色主操作色）*/
+  --rust-400: var(--orange);
+  --rust-500: var(--bg-ink);
+  --rust-600: var(--bg-base);
+  --rust-glow: rgba(0, 0, 0, 0.12);
+
+  /* 橄榄绿兼容（已替换为荧光黄绿辅色）*/
+  --olive-400: var(--lime-soft);
+  --olive-500: var(--lime-dark);
+  --olive-600: var(--lime-dark);
+
+  /* 墨色文字兼容 */
+  --ink-900: var(--text-heading);
+  --ink-700: var(--text-body);
+  --ink-500: var(--text-muted);
+  --ink-400: var(--text-muted);
+  --ink-300: var(--text-faint);
+
+  /* 阴影兼容 */
+  --shadow-sm:    var(--shadow-card);
+  --shadow-md:    var(--shadow-card);
+  --shadow-lg:    var(--shadow-hard-lg);          /* 改为硬阴影 */
+  --shadow-float: var(--shadow-hard-lg);          /* 旧名称兼容 */
+  --shadow-inset: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  /* 圆角兼容（ZZZ 规范下几乎不使用圆角，保留极小值供 badge 等过渡期使用）*/
+  --radius-sm: 0px;    /* 强制改为0，防止旧代码产生圆角 */
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+}
+
+/* ============================================================
+   ZZZ 复用原语层 v2.1 — 由 TaskHall 验证后提炼为全局类
+   所有页面应优先组合这些 zz-* 原语，而非各自重造 token
+   ============================================================ */
+
+/* ── 区块外壳：深色 / 浅色 ── */
+.zz-section { position: relative; overflow: hidden; }
+.zz-section--dark  { background: var(--bg-base); color: var(--text-white); }
+.zz-section--ink   { background: var(--bg-ink);  color: var(--text-white); }
+.zz-section--light { background: var(--bg-page); color: var(--text-heading); }
+.zz-section--white { background: var(--bg-card); color: var(--text-heading); }
+
+/* 深色区斜纹纹理（标配） */
+.zz-tex-dark::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(
+    135deg, rgba(255,255,255,0.022) 0px, rgba(255,255,255,0.022) 1px,
+    transparent 1px, transparent 8px);
+}
+.zz-tex-strong::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(
+    135deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px,
+    transparent 1px, transparent 6px);
+}
+/* 浅色区轻纹 */
+.zz-tex-light::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(
+    135deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px,
+    transparent 1px, transparent 8px);
+}
+.zz-inner { position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+
+/* ── 章节牌（大数字 + 中文 + 英文）── */
+.zz-chapter {
+  display: inline-flex; flex-direction: column; gap: 4px;
+  padding: 12px 20px 16px; background: var(--lime);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%);
+  position: relative; z-index: 2;
+}
+.zz-chapter__en  { font-family: var(--font-display); font-size: 10px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: rgba(6,6,6,0.55); }
+.zz-chapter__row { display: flex; align-items: flex-end; gap: 12px; }
+.zz-chapter__cn  { font-size: 18px; font-weight: 800; color: #060606; letter-spacing: 2px; line-height: 1; padding-bottom: 6px; }
+.zz-chapter__num { font-family: var(--font-display); font-size: 56px; font-weight: 900; line-height: 0.8; color: #060606; letter-spacing: -3px; }
+.zz-chapter--dark { background: var(--bg-ink); }
+.zz-chapter--dark .zz-chapter__en  { color: rgba(255,255,255,0.4); }
+.zz-chapter--dark .zz-chapter__cn  { color: #fff; }
+.zz-chapter--dark .zz-chapter__num { color: var(--lime); }
+
+/* ── 超大水印字 ── */
+.zz-wm {
+  position: absolute; z-index: 1;
+  font-family: var(--font-display); font-weight: 900;
+  text-transform: uppercase; letter-spacing: -0.04em; line-height: 0.85;
+  color: transparent; white-space: nowrap; user-select: none; pointer-events: none;
+  transform: skewX(-5deg);
+  font-size: clamp(80px, 13vw, 180px);
+}
+.zz-wm--dark  { -webkit-text-stroke: 1.5px rgba(255,255,255,0.045); }
+.zz-wm--light { -webkit-text-stroke: 1.5px rgba(0,0,0,0.05); }
+
+/* ── 标签 / label ── */
+.zz-label { font-family: var(--font-display); font-size: 10px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: var(--text-muted); display: inline-block; }
+.zz-label--lime { color: var(--lime); }
+
+/* ── 按钮系统 ── */
+.zz-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 13px 28px; font-family: var(--font-display); font-size: 13px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; text-decoration: none;
+  border: none; white-space: nowrap; border-radius: 0;
+  transition: background 0.1s, color 0.1s, border-color 0.1s, transform 0.1s, box-shadow 0.1s;
+}
+.zz-btn--accent { background: var(--lime); color: #060606;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 12px) 100%, 0 100%); }
+.zz-btn--accent:hover { background: var(--lime-2); transform: translateY(-2px); box-shadow: 3px 4px 0 rgba(0,0,0,0.25); }
+.zz-btn--dark { background: var(--bg-ink); color: #fff;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 12px) 100%, 0 100%); }
+.zz-btn--dark:hover { background: #2A2A2A; }
+.zz-btn--outline { background: transparent; color: var(--text-heading); border: 1.5px solid var(--border-strong); padding: 11.5px 26px; }
+.zz-btn--outline:hover { background: var(--bg-ink); color: var(--lime); border-color: var(--bg-ink); }
+.zz-btn--ghost-d { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.35); padding: 11.5px 26px; }
+.zz-btn--ghost-d:hover { border-color: var(--lime); color: var(--lime); }
+.zz-btn--sm { padding: 8px 18px; font-size: 11px; }
+.zz-btn--lg { padding: 16px 36px; font-size: 15px; }
+.zz-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+/* 全局按钮按下反馈 — 机械 snap 下沉（ZZZ v3 § 9.8 按钮按下弹起） */
+.zz-btn:not(:disabled):active { transform: translateY(1px) scale(0.985); transition-duration: var(--dur-snap); }
+
+/* ── 平行四边形 Tab ── */
+.zz-tabs { display: inline-flex; gap: 6px; }
+.zz-tab {
+  padding: 10px 24px; font-family: var(--font-display); font-size: 13px; font-weight: 700;
+  letter-spacing: 1px; color: #555;
+  /*──── lime wipe-in 激活动效 ────────────────────────────────
+    原理：background-image（lime 渐变）叠在 background-color 上层；
+    background-size: 0%→100% 从左侧扫入，退出时从右侧收缩。
+    纯 CSS，无需 JS，skewX 变形下无副作用。                     */
+  background-color: var(--bg-card);
+  background-image: linear-gradient(var(--lime), var(--lime));
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  background-position: left center;
+  border: 1.5px solid var(--border-mid); cursor: pointer; white-space: nowrap;
+  border-radius: 0; transform: skewX(-12deg);
+  transition: background-size 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.12s, color 0.18s;
+}
+.zz-tab > span { display: inline-block; transform: skewX(12deg); }
+.zz-tab:hover { border-color: var(--bg-ink); color: var(--bg-ink); }
+/* 激活：lime 从左 100% 全覆盖 */
+.zz-tab--on { background-size: 100% 100%; border-color: var(--lime); color: #060606; }
+/* 深色区 Tab */
+.zz-tab--dark {
+  background-color: var(--bg-surface);
+  background-image: linear-gradient(var(--lime), var(--lime));
+  background-size: 0% 100%;
+  background-repeat: no-repeat;
+  background-position: left center;
+  border-color: var(--bg-line); color: var(--text-faint);
+}
+.zz-tab--dark.zz-tab--on { background-size: 100% 100%; border-color: var(--lime); color: #060606; }
+
+/* ── 切角卡片 ── */
+.zz-card {
+  background: var(--bg-card); border: 1.5px solid var(--border-strong);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), calc(100% - 24px) 100%, 0 100%);
+  position: relative;
+}
+.zz-card--dark {
+  background: var(--bg-card-d, #131313); border: 1px solid rgba(255,255,255,0.07);
+  background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 8px);
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 14px);
+  color: var(--text-white);
+}
+.zz-card--both {
+  clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+}
+
+/* ── 警戒斜纹（黄黑）── */
+.zz-hazard {
+  background: repeating-linear-gradient(-45deg, #111 0, #111 10px, var(--lime) 10px, var(--lime) 20px);
+}
+
+/* ── 胶片节奏线 ── */
+.zz-filmstrip {
+  height: 20px; width: 100%;
+  background: repeating-linear-gradient(90deg,
+    var(--bg-ink) 0, var(--bg-ink) 22px,
+    var(--lime) 22px, var(--lime) 26px,
+    var(--bg-ink) 26px, var(--bg-ink) 48px);
+}
+
+/* ── 斜切过渡带 / 区块咬合 ── */
+.zz-slash-band {
+  height: 44px; background: var(--bg-base); margin-top: -1px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 55%);
+  background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 8px);
+}
+.zz-section-enter { clip-path: polygon(0 22px, 100% 0, 100% 100%, 0 100%); margin-top: -22px; }
+
+/* ── NO SIGNAL 空状态原语 ── */
+.zz-nosignal { position: relative; padding: 72px 20px; display: flex; flex-direction: column; align-items: center; overflow: hidden; }
+.zz-nosignal__wm {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) skewX(-5deg);
+  font-family: var(--font-display); font-size: clamp(60px, 12vw, 150px); font-weight: 900;
+  letter-spacing: -0.03em; text-transform: uppercase; line-height: 0.85;
+  color: transparent; -webkit-text-stroke: 1.5px rgba(0,0,0,0.06);
+  white-space: nowrap; user-select: none; pointer-events: none;
+}
+.zz-nosignal__wm--dark { -webkit-text-stroke-color: rgba(255,255,255,0.05); }
+.zz-nosignal__panel {
+  position: relative; z-index: 1; background: var(--bg-card); border: 1.5px solid var(--border-strong);
+  clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%, 0 14px);
+  box-shadow: 5px 6px 0 rgba(0,0,0,0.12); max-width: 480px; width: 100%;
+}
+.zz-nosignal__body { padding: 36px 44px 40px; display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; }
+.zz-nosignal__title { font-family: var(--font-display); font-size: 30px; font-weight: 900; color: var(--text-heading); margin: 0; letter-spacing: 2px; text-transform: uppercase; }
+.zz-nosignal__desc { font-size: 14px; color: #666; margin: 0; line-height: 1.6; }
+.zz-nosignal__sticker {
+  font-family: var(--font-display); font-size: 10px; font-weight: 700; letter-spacing: 3px;
+  color: #060606; background: var(--lime); text-transform: uppercase; padding: 6px 14px; margin-top: 2px;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 50%, calc(100% - 10px) 100%, 0 100%);
+}
+.zz-nosignal__actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   动效复用层 — ZZZ 机械感 motion system
+   令牌 + @keyframes + 工具类。每个动效服务业务反馈，不炫技。
+   时长集中 0.06s–0.32s；卡片 hover 翻转保持瞬时（禁止清单 #4）。
+   全部仅动 transform / opacity / background-position（GPU 友好）。
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  /* 时长令牌 */
+  --dur-instant: 0.06s;
+  --dur-fast:    0.12s;
+  --dur-base:    0.2s;
+  --dur-slow:    0.32s;
+  /* 缓动令牌 */
+  --ease-snap: cubic-bezier(0.2, 0.9, 0.3, 1);   /* 机械减速，快出硬定位 */
+  --ease-out:  cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in:   cubic-bezier(0.5, 0, 0.75, 0);
+}
+
+/* ── @keyframes ── */
+/* 入场：下方 14px + 淡入 → 归位（分类切换 / 首次加载 stagger） */
+@keyframes zz-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* 骨架高光斜扫（单色半透明白带，非彩色渐变，合规） */
+@keyframes zz-shimmer {
+  from { background-position: -150% 0; }
+  to   { background-position: 250% 0; }
+}
+/* 接取成功盖章：放大旋转淡入 → 落定 */
+@keyframes zz-stamp {
+  0%   { opacity: 0; transform: scale(1.5) rotate(-8deg); }
+  60%  { opacity: 1; transform: scale(0.94) rotate(-8deg); }
+  100% { opacity: 1; transform: scale(1) rotate(-8deg); }
+}
+/* 直播信号点呼吸 */
+@keyframes zz-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.45; transform: scale(0.82); }
+}
+/* 信号环外扩 */
+@keyframes zz-ping {
+  0%   { opacity: 0.5; transform: scale(0.7); }
+  80%, 100% { opacity: 0; transform: scale(2.2); }
+}
+/* 警戒条纹扫描滚动 */
+@keyframes zz-hazard-scan {
+  from { background-position: 0 0; }
+  to   { background-position: 56px 0; }
+}
+/* 弹窗 / 面板入场：缩放淡入（spring 感） */
+@keyframes zz-pop {
+  0%   { opacity: 0; transform: scale(0.94); }
+  100% { opacity: 1; transform: scale(1); }
+}
+/* 旋转 spinner */
+@keyframes zz-spin { to { transform: rotate(360deg); } }
+/* 信号丢失闪烁 */
+@keyframes zz-flicker {
+  0%, 100% { opacity: 0.7; }
+  48%      { opacity: 0.7; }
+  50%      { opacity: 0.25; }
+  52%      { opacity: 0.7; }
+}
+
+/* ── 工具类 ── */
+/* 入场动画：单元素 */
+.zz-enter { animation: zz-rise var(--dur-base) var(--ease-out) both; }
+.zz-pop   { animation: zz-pop var(--dur-base) var(--ease-snap) both; }
+
+/* 列表逐张落位：子元素按 --i 递延，封顶 ~0.42s */
+.zz-stagger > * {
+  animation: zz-rise var(--dur-base) var(--ease-out) both;
+  animation-delay: calc(min(var(--i, 0), 12) * 35ms);
+}
+
+/* 骨架屏：hatch 底 + 斜扫高光 */
+.zz-skeleton {
+  position: relative;
+  background-color: var(--bg-concrete);
+  background-image: linear-gradient(
+    100deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.55) 50%,
+    transparent 70%
+  );
+  background-size: 220% 100%;
+  background-repeat: no-repeat;
+  animation: zz-shimmer 1.25s var(--ease-in) infinite;
+}
+
+/* 旋转 spinner（内联于按钮） */
+.zz-spinner {
+  display: inline-block; width: 1em; height: 1em; flex-shrink: 0;
+  border: 2px solid currentColor; border-right-color: transparent;
+  border-radius: 50%;
+  animation: zz-spin 0.7s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zz-btn, .zz-tab, .zz-card { transition: none; }
+  .zz-enter, .zz-pop, .zz-stagger > * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .zz-skeleton { animation: none; }
+  .zz-spinner  { animation-duration: 1.4s; }
+}
+
+/* ============================================================
+   ZZZ DesignSpec v3.0 — 追加层
+   批A：十级灰阶 · 分类身份色 · 新动效令牌 · 新切角预设 · 字体类
+   ============================================================ */
+
+/* ── v3 十级灰阶系统 ── */
+:root {
+  --c-00: #000000;
+  --c-11: #111111;
+  --c-22: #222222;
+  --c-33: #333333;
+  --c-66: #666666;
+  --c-83: #838383;
+  --c-99: #999999;
+  --c-c7: #C7C7C7;
+  --c-cc: #CCCCCC;
+  --c-e6: #E6E6E6;
+  --c-f5: #F5F5F5;
+  --c-ff: #FFFFFF;
+}
+
+/* ── v3 分类身份色（仅以光晕/投影形式使用，不作大面积背景）── */
+:root {
+  --cat-design:   #757ED8;
+  --cat-dev:      #68CD52;
+  --cat-photo:    #F497BC;
+  --cat-write:    #F8C235;
+  --cat-event:    #FF6B1A;
+  --cat-research: #AED5FF;
+  --cat-urgent:   #E8281A;
+  --cat-other:    #D4FF00;
+}
+
+/* ── v3 动效令牌（补充/更新，与已有令牌合并）── */
+:root {
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* 弹簧感 hover 弹起 */
+  --ease-io:     cubic-bezier(0.45, 0, 0.55, 1);     /* 对称平滑状态切换 */
+  --dur-snap:    0.1s;    /* 机械 snap — hover 底色 */
+  --dur-normal:  0.28s;   /* 标准 — 弹窗、菜单 */
+  --dur-reveal:  0.38s;   /* 入场揭示 — scroll reveal */
+  --dur-page:    0.45s;   /* 页面级路由切换 */
+}
+
+/* ── v3 新增 clip-path 预设 ── */
+:root {
+  --clip-br-sm:        polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 14px) 100%, 0 100%);
+  --clip-br-lg:        polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 40px) 100%, 0 100%);
+  --clip-section-top:    polygon(0 20px, 100% 0, 100% 100%, 0 100%);
+  --clip-section-top-lg: polygon(0 40px, 100% 0, 100% 100%, 0 100%);
+}
+
+/* ============================================================
+   v3 字体类 — 8 级排版系统（theme.css 全局可用）
+   严格对齐 ZZZ_DesignSpec_v3.md § 2.3–2.4
+   ============================================================ */
+
+/* 超大展示标题 — Hero 主标 */
+.zzz-display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(64px, 10vw, 140px);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+}
+
+/* 大展示标题 — 区块大标 */
+.zzz-display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw, 88px);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.94;
+  letter-spacing: -0.015em;
+}
+
+/* 中展示标题 — 卡片标题 / 二级标题 */
+.zzz-display-md {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 48px);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+}
+
+/* 小展示标题 */
+.zzz-display-sm {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+}
+
+/* 中文展示字修饰符 — 与 zzz-display-xl/lg/md 组合使用
+   工程规则：纯英文 UPPERCASE 展示字（水印/数字/徽章）可使用
+   0.85-0.94 紧凑行高；中文展示字（≥28px，可能换行）必须叠加
+   此修饰符，否则中文字形 em-square 会造成行间视觉重叠。
+   用法：<h1 class="zzz-display-xl zzz-display--cn">校园委托</h1> */
+.zzz-display--cn {
+  text-transform: none;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.zzz-display-xl.zzz-display--cn { line-height: 1.05; }
+.zzz-display-lg.zzz-display--cn { line-height: 1.08; }
+.zzz-display-md.zzz-display--cn { line-height: 1.12; letter-spacing: 0; }
+/* 标签类 — 章节贴纸、分类标签（uppercase + 宽字间距） */
+.zzz-label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+/* 正文主体 */
+.zzz-body-lg {
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: 0;
+}
+
+/* 辅助说明文字（最小 14px）*/
+.zzz-body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0;
+}
+
+/* 元信息 / 时间戳 */
+.zzz-caption {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+}
+
+/* 等宽 — TASK ID、编号 */
+.zzz-mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 1px;
+}
+
+/* ============================================================
+   v3 批B：Scroll Reveal · Shine · Ticker · @keyframes 字典
+   ZZZ_DesignSpec_v3.md § 9.3 · 9.5 · 9.6 · 4.3
+   ============================================================ */
+
+/* ─────────────────────────────────────────
+   Scroll Reveal — 通用入场基类
+   搭配 useScrollReveal composable 使用
+   ───────────────────────────────────────── */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity   var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+}
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 从左滑入 */
+.scroll-reveal--left {
+  transform: translateX(-32px);
+}
+/* 从右滑入 */
+.scroll-reveal--right {
+  transform: translateX(32px);
+}
+/* 缩放进入 */
+.scroll-reveal--scale {
+  transform: scale(0.93);
+}
+.scroll-reveal--left.is-visible,
+.scroll-reveal--right.is-visible,
+.scroll-reveal--scale.is-visible {
+  transform: none;
+}
+
+/* reduced-motion 用户：跳过入场动效 */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal,
+  .scroll-reveal--left,
+  .scroll-reveal--right,
+  .scroll-reveal--scale {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────
+   Shine 扫光效果 — hover 时从左到右扫过
+   ───────────────────────────────────────── */
+.zzz-shine-host {
+  position: relative;
+  overflow: hidden;
+}
+.zzz-shine-host::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 40%; height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.10) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%) skewX(-15deg);
+  pointer-events: none;
+  z-index: 10;
+}
+.zzz-shine-host:hover::after {
+  animation: zzz-shine 0.6s ease-out forwards;
+}
+
+/* ─────────────────────────────────────────
+   Ticker 跑马灯（区块间信息条）
+   ───────────────────────────────────────── */
+.zzz-ticker {
+  height: 36px;
+  background: var(--lime);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.zzz-ticker__inner {
+  display: flex;
+  white-space: nowrap;
+  animation: zzz-ticker-run 22s linear infinite;
+}
+.zzz-ticker span {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-on-lime);
+  padding: 0 20px;
+  flex-shrink: 0;
+}
+.zzz-ticker span::after {
+  content: '✦';
+  margin-left: 20px;
+  opacity: 0.5;
+}
+
+/* ─────────────────────────────────────────
+   页面路由切换过渡（Vue <Transition>用）
+   ───────────────────────────────────────── */
+.page-transition-enter-active {
+  transition:
+    opacity   var(--dur-page) var(--ease-out),
+    transform var(--dur-page) var(--ease-out);
+}
+.page-transition-leave-active {
+  transition:
+    opacity   var(--dur-fast) var(--ease-in),
+    transform var(--dur-fast) var(--ease-in);
+}
+.page-transition-enter-from { opacity: 0; transform: translateY(12px); }
+.page-transition-leave-to   { opacity: 0; transform: translateY(-8px); }
+
+/* ─────────────────────────────────────────
+   v3 @keyframes 字典（补充 theme.css 已有 keyframes）
+   ───────────────────────────────────────── */
+
+/* 扫光从左穿过 */
+@keyframes zzz-shine {
+  0%   { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(300%)  skewX(-15deg); }
+}
+
+/* 水印文字浮动 */
+@keyframes zzz-wm-float {
+  0%, 100% { transform: skewX(-5deg) translateX(0); }
+  50%      { transform: skewX(-5deg) translateX(-12px); }
+}
+
+/* 赏金数字弹跳 */
+@keyframes zzz-number-pop {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* 弹窗蒙层淡入 */
+@keyframes zzz-mask-in {
+  from { background: rgba(0,0,0,0); }
+  to   { background: rgba(0,0,0,0.75); }
+}
+
+/* 弹窗主体入场 */
+@keyframes zzz-popup-in {
+  from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0)     scale(1); }
+}
+
+/* 弹窗主体退场（比入场快） */
+@keyframes zzz-popup-out {
+  from { opacity: 1; transform: translateY(0)     scale(1); }
+  to   { opacity: 0; transform: translateY(12px)  scale(0.95); }
+}
+
+/* Toast / 通知从下滑入 */
+@keyframes zzz-slide-up {
+  from { opacity: 0; transform: translate3d(0, 100%, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* 背景纹理极慢漂移（营造呼吸感） */
+@keyframes zzz-texture-drift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 80px 80px; }
+}
+
+/* Ticker 滚动 */
+@keyframes zzz-ticker-run {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ============================================================
+   v3 批C：可复用交互动效工具层
+   ZZZ_DesignSpec_v3.md § 9 — 供所有页面组合使用的原语
+   设计原则：动效表达因果，不炫技；入场慢/出场快；transform+opacity
+   ============================================================ */
+
+/* ─────────────────────────────────────────
+   [1] zz-lift — ZZZ 标志硬阴影悬浮
+   卡片/面板 hover 时向左上抬起 + 纯黑实体阴影
+   用于：可点击的内容卡、榜单奖牌、统计块
+   ───────────────────────────────────────── */
+.zz-lift {
+  transition:
+    transform  var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    border-color var(--dur-snap) linear;
+  will-change: transform;
+}
+.zz-lift:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: var(--shadow-hard-lg);
+}
+.zz-lift:active {
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-hard);
+}
+/* 深色区变体：lime 描边替代纯黑阴影 */
+.zz-lift--d:hover {
+  box-shadow: 6px 8px 0 rgba(212, 255, 0, 0.22);
+  border-color: var(--lime);
+}
+
+/* ─────────────────────────────────────────
+   [2] zz-drawer — 抽屉抽拉 hover overlay（通用版）
+   容器 overflow:hidden，面板初始藏于底边外，hover 抽出
+   用于：列表行操作层、封面「查看/接取」层
+   结构：
+     <div class="zz-drawer">
+       ...常态内容...
+       <div class="zz-drawer__panel">抽出内容</div>
+     </div>
+   ───────────────────────────────────────── */
+.zz-drawer {
+  position: relative;
+  overflow: hidden;
+}
+.zz-drawer__panel {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  background: var(--bg-base);
+  border-top: 1px solid var(--lime);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  transform: translateY(100%);
+  transition: transform var(--dur-normal) var(--ease-out);
+  will-change: transform;
+  z-index: 4;
+}
+.zz-drawer:hover .zz-drawer__panel,
+.zz-drawer:focus-within .zz-drawer__panel {
+  transform: translateY(0);
+}
+/* 从右抽出的横向变体 */
+.zz-drawer__panel--right {
+  top: 0; bottom: 0; left: auto;
+  width: auto;
+  border-top: none;
+  border-left: 1px solid var(--lime);
+  flex-direction: column;
+  transform: translateX(100%);
+}
+.zz-drawer:hover .zz-drawer__panel--right,
+.zz-drawer:focus-within .zz-drawer__panel--right {
+  transform: translateX(0);
+}
+
+/* ─────────────────────────────────────────
+   [3] zz-hover-slide — 列表行 hover 横移 + lime 指示条
+   行元素 hover 时右移 + 左侧 lime 竖条抽出（因果：可点/选中）
+   用于：榜单行、消息行、审核行、法庭案件行
+   ───────────────────────────────────────── */
+.zz-hover-slide {
+  position: relative;
+  transition:
+    transform   var(--dur-fast) var(--ease-out),
+    background  var(--dur-snap) linear;
+}
+.zz-hover-slide::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--lime);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.zz-hover-slide:hover {
+  transform: translateX(6px);
+}
+.zz-hover-slide:hover::before {
+  transform: scaleY(1);
+}
+
+/* ─────────────────────────────────────────
+   [4] zz-press — 按钮/可点元素按下弹性反馈
+   hover 微抬(spring)，active 下沉(snap)——机械手感
+   用于：CTA、tab、chip、图标按钮
+   ───────────────────────────────────────── */
+.zz-press {
+  transition: transform var(--dur-fast) var(--ease-spring);
+}
+.zz-press:hover  { transform: translateY(-2px); }
+.zz-press:active { transform: translateY(1px) scale(0.98); transition-duration: var(--dur-snap); }
+
+/* ─────────────────────────────────────────
+   [5] zz-icon-nudge — hover 时箭头/图标推进
+   父元素 hover 时内部 .zz-icon-nudge__i 右移（因果：前进/跳转）
+   用于：「查看详情 →」「进入 →」类链接
+   ───────────────────────────────────────── */
+.zz-icon-nudge__i {
+  display: inline-block;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.zz-icon-nudge:hover .zz-icon-nudge__i,
+a:hover > .zz-icon-nudge__i,
+button:hover > .zz-icon-nudge__i {
+  transform: translateX(4px);
+}
+
+/* ─────────────────────────────────────────
+   [6] Stagger 交错入场辅助
+   容器加 .zz-stagger，子元素为 .scroll-reveal 时，
+   useScrollReveal(sel,{},{stagger:60}) 会注入 transition-delay。
+   此处提供纯 CSS 后备（IO 不可用时按 nth-child 兜底延迟）。
+   ───────────────────────────────────────── */
+.zz-stagger > .scroll-reveal:nth-child(1)  { transition-delay: 0ms; }
+.zz-stagger > .scroll-reveal:nth-child(2)  { transition-delay: 60ms; }
+.zz-stagger > .scroll-reveal:nth-child(3)  { transition-delay: 120ms; }
+.zz-stagger > .scroll-reveal:nth-child(4)  { transition-delay: 180ms; }
+.zz-stagger > .scroll-reveal:nth-child(5)  { transition-delay: 240ms; }
+.zz-stagger > .scroll-reveal:nth-child(6)  { transition-delay: 300ms; }
+.zz-stagger > .scroll-reveal:nth-child(n+7){ transition-delay: 360ms; }
+
+/* ─────────────────────────────────────────
+   [7] zz-num-pop — 数字更新弹跳（配合 useCountUp / .is-updated）
+   ───────────────────────────────────────── */
+.zz-num-pop {
+  display: inline-block;
+  transition: color var(--dur-snap);
+}
+.zz-num-pop.is-updated {
+  animation: zzz-number-pop 0.3s var(--ease-spring);
+}
+
+/* ─────────────────────────────────────────
+   [8] zz-underline — 文字链接 hover lime 下划线抽出
+   ───────────────────────────────────────── */
+.zz-underline {
+  position: relative;
+  text-decoration: none;
+}
+.zz-underline::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 100%; height: 2px;
+  background: var(--lime);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.zz-underline:hover::after { transform: scaleX(1); }
+
+/* ─────────────────────────────────────────
+   工具层 reduced-motion 守卫
+   ───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .zz-lift, .zz-lift:hover, .zz-lift:active,
+  .zz-drawer__panel, .zz-drawer__panel--right,
+  .zz-hover-slide, .zz-hover-slide:hover,
+  .zz-press, .zz-press:hover, .zz-press:active,
+  .zz-icon-nudge__i {
+    transition: none !important;
+    transform: none !important;
+  }
+  /* 抽屉在无动效时改为常显，保证功能可达 */
+  .zz-drawer__panel,
+  .zz-drawer__panel--right {
+    position: static;
+    transform: none !important;
+  }
+  .zz-num-pop.is-updated { animation: none !important; }
+}

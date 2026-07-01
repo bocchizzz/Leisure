@@ -1,83 +1,96 @@
 <template>
   <div class="prec">
-    <!-- 标题区 -->
-    <section class="prec-head">
-      <div class="prec-head__text">
-        <div class="cq-eyebrow">★ PRECEDENT ARCHIVE</div>
-        <h1 class="prec-head__title cq-display">校园判例库 / PRECEDENT ARCHIVE</h1>
-        <p class="prec-head__sub">陪审团裁定过的纠纷卷宗，皆归档于此，供后来者引以为鉴。</p>
+    <!-- §1 深色标题区 -->
+    <section class="prec-hero zz-section zz-section--dark zz-tex-dark">
+      <div class="prec-hero__wm zz-wm zz-wm--dark" aria-hidden="true">PRECEDENT</div>
+      <div class="prec-hero__inner zz-inner scroll-reveal">
+        <PageBackButton class="prec-hero__back" />
+
+        <div class="zz-chapter zz-chapter--dark prec-hero__chapter">
+          <span class="zz-chapter__en">PRECEDENT ARCHIVE</span>
+          <div class="zz-chapter__row">
+            <span class="zz-chapter__cn">校园判例库</span>
+            <span class="zz-chapter__num">05</span>
+          </div>
+        </div>
+        <p class="prec-hero__sub">陪审团裁定过的纠纷卷宗，皆归档于此，供后来者引以为鉴。</p>
+
+        <!-- 搜索框 -->
+        <div class="prec-search">
+          <el-input
+            v-model="keyword"
+            size="large"
+            clearable
+            placeholder="搜索判例关键词、案由或裁定结论…"
+            :prefix-icon="Search"
+            @keyup.enter="onSearch"
+            @clear="onSearch"
+          />
+          <button class="zz-btn zz-btn--accent" @click="onSearch">检索</button>
+        </div>
       </div>
-      <div class="prec-head__seal">⚖️</div>
+      <div class="zz-filmstrip prec-hero__film" aria-hidden="true" />
     </section>
 
-    <!-- 搜索框 -->
-    <div class="prec-search cq-card">
-      <el-input
-        v-model="keyword"
-        size="large"
-        clearable
-        placeholder="搜索判例关键词、案由或裁定结论…"
-        :prefix-icon="Search"
-        @keyup.enter="onSearch"
-        @clear="onSearch"
-      />
-      <button class="cq-btn cq-btn--primary" @click="onSearch">检 索</button>
-    </div>
+    <!-- §2 判例列表 -->
+    <section class="prec-body zz-section zz-section--light">
+      <div class="prec-body__inner zz-inner">
+        <div v-loading="loading" class="prec-list zz-stagger">
+          <article
+            v-for="item in precedents"
+            :key="item.id"
+            class="prec-card zz-card scroll-reveal scroll-reveal--scale"
+            @click="openCase(item.caseId)"
+          >
+            <div class="prec-card__head">
+              <div class="prec-card__no">
+                <span class="prec-card__no-label">CASE NO.</span>
+                <span class="prec-card__no-num">#{{ item.id }}</span>
+              </div>
+              <span class="cq-tag" :class="rulingTagClass(item.rulingResult)">
+                {{ rulingName(item.rulingResult) }}
+              </span>
+            </div>
 
-    <!-- 列表 -->
-    <div v-loading="loading" class="prec-list">
-      <article
-        v-for="item in precedents"
-        :key="item.id"
-        class="prec-card cq-card cq-card--dashed"
-        @click="openCase(item.caseId)"
-      >
-        <div class="prec-card__head">
-          <div class="prec-card__no">
-            <span class="prec-card__no-label">CASE NO.</span>
-            <span class="prec-card__no-num">#{{ item.id }}</span>
-          </div>
-          <span class="cq-tag" :class="rulingTagClass(item.rulingResult)">
-            {{ rulingName(item.rulingResult) }}
-          </span>
+            <h2 class="prec-card__title">{{ item.title }}</h2>
+            <p class="prec-card__summary">{{ item.summary }}</p>
+
+            <div v-if="item.tags?.length" class="prec-card__tags">
+              <span v-for="tag in item.tags" :key="tag" class="cq-tag cq-tag--olive">{{ tag }}</span>
+            </div>
+
+            <div class="prec-card__foot">
+              <span class="cq-barcode prec-card__barcode" />
+              <span class="prec-card__date">归档于 {{ formatDate(item.createdAt) }}</span>
+            </div>
+          </article>
         </div>
 
-        <h2 class="prec-card__title">{{ item.title }}</h2>
-        <p class="prec-card__summary">{{ item.summary }}</p>
+        <EmptyState
+          v-if="!loading && precedents.length === 0"
+          title="NO SIGNAL"
+          watermark="NO SIGNAL"
+          sticker="ARCHIVE EMPTY"
+          :description="keyword ? '换个关键词再试试，或许卷宗藏得更深。' : '尚无归档判例，待第一桩纠纷尘埃落定。'"
+        />
 
-        <div v-if="item.tags?.length" class="prec-card__tags">
-          <span v-for="tag in item.tags" :key="tag" class="cq-tag cq-tag--olive">{{ tag }}</span>
+        <div v-if="totalPages > 1" class="prec-pager">
+          <el-pagination
+            background
+            layout="prev, pager, next"
+            :total="totalElements"
+            :page-size="size"
+            :current-page="page + 1"
+            @current-change="onPageChange"
+          />
         </div>
-
-        <div class="prec-card__foot">
-          <span class="cq-barcode prec-card__barcode" />
-          <span class="prec-card__date">归档于 {{ formatDate(item.createdAt) }}</span>
-        </div>
-      </article>
-    </div>
-
-    <EmptyState
-      v-if="!loading && precedents.length === 0"
-      icon="📜"
-      title="判例库暂无卷宗"
-      :description="keyword ? '换个关键词再试试，或许卷宗藏得更深。' : '尚无归档判例，待第一桩纠纷尘埃落定。'"
-    />
-
-    <div v-if="totalPages > 1" class="prec-pager">
-      <el-pagination
-        background
-        layout="prev, pager, next"
-        :total="totalElements"
-        :page-size="size"
-        :current-page="page + 1"
-        @current-change="onPageChange"
-      />
-    </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { Search } from '@element-plus/icons-vue'
 import { courtApi } from '@/api/court'
@@ -85,8 +98,13 @@ import type { CourtPrecedentVO } from '@/types/court'
 import { RulingResult, RulingResultName } from '@/types/enums'
 import { formatDate } from '@/utils/format'
 import EmptyState from '@/components/common/EmptyState.vue'
+import PageBackButton from '@/components/common/PageBackButton.vue'
+import { useScrollReveal } from '@/composables/useScrollReveal'
 
 const router = useRouter()
+useScrollReveal()
+// 判例卡片交错入场
+const refreshCards = useScrollReveal('.prec-card.scroll-reveal', {}, { stagger: 60 })
 
 const precedents = ref<CourtPrecedentVO[]>([])
 const loading = ref(false)
@@ -113,6 +131,8 @@ async function reload() {
     totalPages.value = 0
   } finally {
     loading.value = false
+    await nextTick()
+    refreshCards()
   }
 }
 
@@ -145,48 +165,43 @@ onMounted(reload)
 </script>
 
 <style scoped>
-.prec {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
+.prec { font-family: var(--font-body); }
 
-/* —— 标题 —— */
-.prec-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-}
-.prec-head__title {
-  font-size: 34px;
-  margin: 6px 0 10px;
-}
-.prec-head__sub {
-  color: var(--ink-500);
+/* —— §1 深色 Hero —— */
+.prec-hero { padding-top: 56px; }
+.prec-hero__wm { top: 16px; right: 32px; }
+.prec-hero__inner { position: relative; z-index: 2; padding-top: 0; padding-bottom: 0; }
+.prec-hero__back { margin: 0 0 24px; }
+.prec-hero__chapter { margin-bottom: 18px; }
+.prec-hero__sub {
+  color: rgba(255, 255, 255, 0.5);
   font-size: 14px;
-  font-style: italic;
-  margin: 0;
+  margin: 0 0 28px;
   max-width: 540px;
+  line-height: 1.7;
 }
-.prec-head__seal {
-  font-size: 72px;
-  flex-shrink: 0;
-  filter: drop-shadow(0 8px 18px rgba(58, 40, 24, 0.28));
-}
+.prec-hero__film { margin-top: 40px; }
 
 /* —— 搜索 —— */
 .prec-search {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding: 16px 20px;
+  gap: 12px;
+  max-width: 640px;
 }
-.prec-search :deep(.el-input) {
-  flex: 1;
+.prec-search :deep(.el-input) { flex: 1; }
+.prec-search :deep(.el-input__wrapper) {
+  border-radius: 0;
+  background: var(--bg-surface);
+  box-shadow: none;
+  border: 1.5px solid var(--bg-line);
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
 }
+.prec-search :deep(.el-input__inner) { color: #fff; }
 
-/* —— 列表 —— */
+/* —— §2 列表 —— */
+.prec-body { padding: 52px 0 80px; }
+.prec-body__inner { position: relative; z-index: 2; padding-top: 0; padding-bottom: 0; }
 .prec-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -199,14 +214,11 @@ onMounted(reload)
   gap: 10px;
   padding: 20px;
   cursor: pointer;
-  transition: transform 0.16s ease, box-shadow 0.16s ease;
-  background:
-    radial-gradient(circle at 90% 8%, rgba(200, 150, 90, 0.12), transparent 45%),
-    var(--paper-card);
+  transition: transform 0.1s, box-shadow 0.1s;
 }
 .prec-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  transform: translate(-4px, -4px);
+  box-shadow: 6px 8px 0 var(--border-strong);
 }
 .prec-card__head {
   display: flex;

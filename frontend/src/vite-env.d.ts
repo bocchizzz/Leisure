@@ -3,6 +3,8 @@
 interface ImportMetaEnv {
   readonly VITE_API_BASE: string
   readonly VITE_UPLOAD_BASE: string
+  readonly VITE_USE_MOCK?: string
+  readonly VITE_PUBLIC_FALLBACK?: string
 }
 
 interface ImportMeta {

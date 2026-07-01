@@ -5,8 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:mock": "vite --mode mock --host 127.0.0.1",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:unit": "vitest run",
+    "test:all": "npm run build && npm run test:unit && npm run test:e2e",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
@@ -17,12 +23,15 @@
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.1",
     "@types/node": "^26.0.1",
     "@vitejs/plugin-vue": "^5.2.1",
+    "happy-dom": "^20.10.6",
     "typescript": "^5.7.2",
     "unplugin-auto-import": "^0.18.6",
     "unplugin-vue-components": "^0.27.5",
     "vite": "^6.0.5",
+    "vitest": "^4.1.9",
     "vue-tsc": "^2.2.0"
   }
 }

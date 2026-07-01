@@ -47,6 +47,9 @@ export const useAuthStore = defineStore('auth', () => {
       setStoredUser(me)
       return me
     } catch {
+      token.value = null
+      user.value = null
+      clearToken()
       return null
     }
   }

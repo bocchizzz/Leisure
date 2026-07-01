@@ -30,6 +30,23 @@ export interface AuditLogVO {
   createdAt: string
 }
 
+/** 运营配置 / 内容安全策略 */
+export interface OpsConfig {
+  taskReviewMode: 'AUTO' | 'MANUAL' | 'HYBRID'
+  minAutoPassSafetyScore: number
+  maxAutoBlockSafetyScore: number
+  aiSafetyEnabled: boolean
+  aiOutputWatermark: boolean
+  bannedKeywords: string[]
+  fileMaxSizeMb: number
+  allowedFileTypes: string[]
+  juryMinReputation: number
+  juryMinCompletedTasks: number
+  voteQuorum: number
+  disputeAutoEscalationHours: number
+  updatedAt?: string
+}
+
 export const adminApi = {
   /** 用户列表 */
   users(params?: { page?: number; size?: number; keyword?: string; status?: string }) {
@@ -58,5 +75,13 @@ export const adminApi = {
   /** 审计日志 */
   auditLogs(params?: { page?: number; size?: number }) {
     return request<PageResult<AuditLogVO>>({ url: '/admin/audit-logs', method: 'get', params })
+  },
+  /** 运营配置 / 内容安全 */
+  opsConfig() {
+    return request<OpsConfig>({ url: '/admin/ops-config', method: 'get' })
+  },
+  /** 更新运营配置 / 内容安全 */
+  updateOpsConfig(data: OpsConfig) {
+    return request<OpsConfig>({ url: '/admin/ops-config', method: 'put', data })
   },
 }
