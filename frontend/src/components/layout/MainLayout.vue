@@ -6,10 +6,7 @@
         <!-- 品牌 -->
         <RouterLink to="/" class="cb-topnav__brand">
           <div class="cb-topnav__logo" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M5 3h11l3 3v15H5z" fill="#060606"/>
-              <path d="M8 8h8M8 12h8M8 16h5" stroke="#D4FF00" stroke-width="2" stroke-linecap="square"/>
-            </svg>
+            <img :src="LOGO" alt="" class="cb-topnav__logo-img" />
           </div>
           <div class="cb-topnav__brandtext">
             <div class="cb-topnav__title">赏金布</div>
@@ -105,6 +102,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { LOGO } from '@/assets'
 import { useAuthStore } from '@/stores/auth'
 import { useMessageStore } from '@/stores/message'
 import { MAIN_NAV } from '@/utils/constants'
@@ -180,11 +178,17 @@ function onUserCommand(command: string) {
 .cb-topnav__logo {
   width: 36px;
   height: 36px;
-  background: var(--lime);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+  background: #f5efe3;
+  border: 1px solid var(--bg-line);
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.cb-topnav__logo-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 .cb-topnav__brandtext { display: flex; flex-direction: column; line-height: 1; }
 .cb-topnav__title {

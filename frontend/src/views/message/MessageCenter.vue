@@ -187,6 +187,7 @@ function typeName(type: string) {
 const routeMap: Record<string, (id: number) => string> = {
   CONTRACT: (id) => `/contracts/${id}`,
   TASK: (id) => `/tasks/${id}`,
+  APPLICATION: (id) => `/tasks/${id}`,
   COURT: (id) => `/court/${id}`,
 }
 function isClickable(msg: MessageVO) {

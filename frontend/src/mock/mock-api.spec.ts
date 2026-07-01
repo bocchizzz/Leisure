@@ -1,4 +1,4 @@
-import axios, { type AxiosInstance } from 'axios'
+import axios, { type AxiosInstance, type AxiosResponse } from 'axios'
 import { beforeEach, describe, expect, it } from 'vitest'
 import type { ApiResponse, PageResult } from '@/types/api'
 import type { TaskVO } from '@/types/task'
@@ -34,7 +34,7 @@ function apiAs(username?: string): AxiosInstance {
   setupMockInterceptor(client)
   client.interceptors.response.use((response) => {
     const body = response.data as ApiResponse
-    if (body.code === 200) return body.data
+    if (body.code === 200) return body.data as unknown as AxiosResponse
     return Promise.reject(Object.assign(new Error(body.message), { code: body.code }))
   })
   if (username) {

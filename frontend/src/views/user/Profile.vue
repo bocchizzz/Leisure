@@ -165,6 +165,7 @@
               </el-form-item>
 
               <button
+                type="button"
                 class="zz-btn zz-btn--accent zz-btn--lg pform__submit"
                 :disabled="saving"
                 @click="onSubmit"
@@ -301,7 +302,7 @@ const selectedMascotKey = computed(() =>
 )
 
 const rules: FormRules = {
-  nickname: [{ max: 30, message: '昵称不超过 30 个字符', trigger: 'blur' }],
+  nickname: [{ max: 30, message: '昵称不超过 30 个字符', trigger: ['blur', 'change'] }],
   phone: [{ pattern: /^1\d{10}$/, message: '请输入有效的手机号', trigger: 'blur' }],
   email: [{ type: 'email', message: '请输入有效的邮箱', trigger: 'blur' }],
 }
@@ -369,6 +370,10 @@ async function loadProfile() {
 
 async function onSubmit() {
   if (!formRef.value) return
+  if ((form.nickname || '').length > 30) {
+    ElMessage.warning('昵称不超过 30 个字符')
+    return
+  }
   const valid = await formRef.value.validate().catch(() => false)
   if (!valid) return
 

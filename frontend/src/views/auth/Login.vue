@@ -15,10 +15,7 @@
         <div class="auth-card__chapter">
           <span class="cb-label">CAMPUS BOARD</span>
           <div class="auth-card__logo" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M5 3h11l3 3v15H5z" fill="#060606"/>
-              <path d="M8 8h8M8 12h8M8 16h5" stroke="#D4FF00" stroke-width="2" stroke-linecap="square"/>
-            </svg>
+            <img :src="LOGO" alt="" class="auth-card__logo-img" />
           </div>
         </div>
 
@@ -156,9 +153,9 @@ import { ref, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { User, Lock } from '@element-plus/icons-vue'
 import { ElMessage, type FormInstance, type FormRules } from 'element-plus'
+import { LOGO, MASCOT_MAP } from '@/assets'
 import { useAuthStore } from '@/stores/auth'
 import { useMessageStore } from '@/stores/message'
-import { MASCOT_MAP } from '@/assets'
 import { useScrollReveal } from '@/composables/useScrollReveal'
 
 useScrollReveal()
@@ -308,15 +305,19 @@ const steps = [
   margin-bottom: 20px;
 }
 .auth-card__logo {
-  font-size: 24px;
-  width: 42px;
-  height: 42px;
-  background: var(--lime);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  clip-path: var(--clip-br);
+  width: 56px;
+  height: 56px;
+  background: #f5efe3;
+  border: 1px solid var(--border-mid);
+  border-radius: 12px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.auth-card__logo-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 .auth-card__title {
   font-size: 40px;

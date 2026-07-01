@@ -38,6 +38,7 @@ import { computed, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { fileApi, resolveFileUrl } from '@/api/file'
 import type { FilePurpose } from '@/types/enums'
+import { describeAccept, validateUploadFile } from '@/utils/fileUpload'
 
 const props = withDefaults(
   defineProps<{
@@ -60,35 +61,17 @@ function isImage(url: string): boolean {
     || url.startsWith('data:image/')
 }
 
-const acceptLabel = computed(() => {
-  if (!props.accept || props.accept === '*') return '任意文件'
-  if (props.accept === 'image/*') return '图片文件'
-  return props.accept
-})
-
-function acceptMatches(file: File): boolean {
-  const accept = props.accept?.trim()
-  if (!accept || accept === '*') return true
-  return accept.split(',').map((item) => item.trim()).some((rule) => {
-    if (!rule) return false
-    if (rule.endsWith('/*')) return file.type.startsWith(rule.slice(0, -1))
-    if (rule.startsWith('.')) return file.name.toLowerCase().endsWith(rule.toLowerCase())
-    return file.type === rule
-  })
-}
+const acceptLabel = computed(() => describeAccept(props.accept))
 
 function validateFile(file: File): boolean {
-  if (props.modelValue.length >= props.max) {
-    ElMessage.warning(`最多只能上传 ${props.max} 个文件`)
-    return false
-  }
-  const maxBytes = props.maxSizeMb * 1024 * 1024
-  if (file.size > maxBytes) {
-    ElMessage.warning(`文件过大，单个文件不能超过 ${props.maxSizeMb}MB`)
-    return false
-  }
-  if (!acceptMatches(file)) {
-    ElMessage.warning(`文件类型不支持，请上传：${acceptLabel.value}`)
+  const error = validateUploadFile(file, {
+    currentCount: props.modelValue.length,
+    max: props.max,
+    accept: props.accept,
+    maxSizeMb: props.maxSizeMb,
+  })
+  if (error) {
+    ElMessage.warning(error)
     return false
   }
   return true
@@ -106,6 +89,7 @@ async function onChange(e: Event) {
   try {
     const res = await fileApi.upload(file, props.purpose)
     emit('update:modelValue', [...props.modelValue, res.url])
+    ElMessage.success('上传成功')
   } catch {
     ElMessage.error('上传失败，请重试')
   } finally {

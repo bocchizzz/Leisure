@@ -4,10 +4,7 @@
     <aside class="adm-side">
       <RouterLink to="/" class="adm-brand">
         <div class="adm-brand__logo" aria-hidden="true">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-            <path d="M5 3h11l3 3v15H5z" fill="#060606"/>
-            <path d="M8 8h8M8 12h8M8 16h5" stroke="#D4FF00" stroke-width="2" stroke-linecap="square"/>
-          </svg>
+          <img :src="LOGO" alt="" class="adm-brand__logo-img" />
         </div>
         <div>
           <div class="adm-brand__name">赏金布</div>
@@ -59,6 +56,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { LOGO } from '@/assets'
 import { useAuthStore } from '@/stores/auth'
 import { ADMIN_NAV } from '@/utils/constants'
 
@@ -99,12 +97,17 @@ const pageTitle = computed(() => (route.meta.title as string) || '管理后台')
 .adm-brand__logo {
   width: 36px;
   height: 36px;
-  background: var(--lime);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+  background: #f5efe3;
+  border: 1px solid var(--bg-line);
+  border-radius: 10px;
+  overflow: hidden;
   flex-shrink: 0;
+}
+.adm-brand__logo-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 .adm-brand__name {
   font-family: var(--font-display);

@@ -299,6 +299,7 @@ function createInitialState(): MockState {
     user(4, 'hunter02', '安比猎人', true, [UserRole.USER], 875, 3),
     user(5, 'jury01', '陪审员零号', true, [UserRole.USER], 890, 3),
     user(6, 'newbie', '未认证新人', false, [UserRole.USER], 520, 0),
+    user(7, 'pending01', '待审新人', false, [UserRole.USER], 610, 1),
   ]
   seedUsers = users
 
@@ -464,7 +465,7 @@ function createInitialState(): MockState {
 
   return {
     next: {
-      user: 7, task: 110, application: 206, contract: 305, evidence: 504,
+      user: 8, task: 110, application: 206, contract: 305, evidence: 504,
       review: 602, certification: 1401, case: 402, statement: 703,
       courtEvidence: 803, vote: 903, ruling: 1501, precedent: 1601,
       message: 1105, audit: 1204, credit: 1004,
@@ -477,12 +478,14 @@ function createInitialState(): MockState {
       hunter02: '123456',
       jury01: '123456',
       newbie: '123456',
+      pending01: '123456',
     },
     certifications: [
       certification(1301, 2, '星野', CertificationStatus.APPROVED),
       certification(1302, 3, '铃音', CertificationStatus.APPROVED),
       certification(1303, 4, '安比', CertificationStatus.APPROVED),
       certification(1304, 5, '零号', CertificationStatus.APPROVED),
+      certification(1305, 7, '待审新人', CertificationStatus.PENDING),
     ],
     tasks,
     applications,
