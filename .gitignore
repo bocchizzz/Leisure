@@ -1,5 +1,6 @@
 backend/*/target/
 backend/.idea/
-backend/BOOT-INF
+backend/BOOT-INF/
 backend/logs/
+backend/data/
 frontend/node_modules/
