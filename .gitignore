@@ -1,9 +1,6 @@
-node_modules/
-dist/
-.vite/
-
-playwright-report/
-test-results/
-.playwright-mcp/
-
-*.log
+backend/*/target/
+backend/.idea/
+backend/BOOT-INF/
+backend/logs/
+backend/data/
+frontend/node_modules/
