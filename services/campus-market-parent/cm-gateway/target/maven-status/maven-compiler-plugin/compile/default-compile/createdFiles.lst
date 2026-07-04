@@ -1,8 +1,0 @@
-com\campus\market\gateway\GatewayApplication.class
-com\campus\market\gateway\handler\GlobalExceptionHandler.class
-com\campus\market\gateway\config\CorsConfig.class
-com\campus\market\gateway\filter\AuthFilter.class
-com\campus\market\gateway\filter\RequestIdFilter.class
-com\campus\market\gateway\config\GatewayConfig.class
-com\campus\market\gateway\filter\InternalBlockFilter.class
-com\campus\market\gateway\filter\LoggingFilter.class

@@ -1,0 +1,31 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: bb-iam-service
+  datasource:
+    url: jdbc:h2:file:./data/bb-iam;MODE=MySQL;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+
+bb:
+  iam:
+    jwt-secret: bangboo-dev-secret-change-me-please-32
+    jwt-ttl: 7d
+    internal-token: bangboo-internal-dev-token
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
