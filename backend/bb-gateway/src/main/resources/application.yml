@@ -1,0 +1,86 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: bb-gateway
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origin-patterns: "*"
+            allowed-methods: "*"
+            allowed-headers: "*"
+            allow-credentials: true
+      routes:
+        - id: bb-iam-auth
+          uri: http://127.0.0.1:8081
+          predicates:
+            - Path=/api/auth/**,/api/users/**,/api/certifications/**,/api/admin/users/**,/api/admin/certifications/**
+          filters:
+            - StripPrefix=1
+        - id: bb-file-api
+          uri: http://127.0.0.1:8085
+          predicates:
+            - Path=/api/files/**
+          filters:
+            - StripPrefix=1
+        # 注意：/uploads/ai/** 必须放在 /uploads/** 之前，保证更具体的路径优先匹配
+        - id: bb-ai-static
+          uri: http://127.0.0.1:8087
+          predicates:
+            - Path=/uploads/ai/**
+        - id: bb-file-static
+          uri: http://127.0.0.1:8085
+          predicates:
+            - Path=/uploads/**
+        - id: bb-message
+          uri: http://127.0.0.1:8084
+          predicates:
+            - Path=/api/messages/**
+          filters:
+            - StripPrefix=1
+        - id: bb-court
+          uri: http://127.0.0.1:8086
+          predicates:
+            - Path=/api/court-cases/**,/api/court-precedents/**,/api/admin/court-cases/**
+          filters:
+            - StripPrefix=1
+        - id: bb-admin-ops
+          uri: http://127.0.0.1:8088
+          predicates:
+            - Path=/api/admin/dashboard,/api/admin/ops-config,/api/admin/ops-config/**,/api/admin/audit-logs,/api/admin/audit-logs/**
+          filters:
+            - StripPrefix=1
+        - id: bb-marketplace
+          uri: http://127.0.0.1:8082
+          predicates:
+            - Path=/api/tasks/**,/api/task-favorites/**,/api/task-history/**,/api/applications/**,/api/contracts/**,/api/admin/tasks/**
+          filters:
+            - StripPrefix=1
+        - id: bb-reputation
+          uri: http://127.0.0.1:8083
+          predicates:
+            - Path=/api/reviews/**,/api/hunters/**
+          filters:
+            - StripPrefix=1
+        - id: bb-ai
+          uri: http://127.0.0.1:8087
+          predicates:
+            - Path=/api/ai/**
+          filters:
+            - StripPrefix=1
+
+bb:
+  gateway:
+    security:
+      jwt-secret: bangboo-dev-secret-change-me-please-32
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

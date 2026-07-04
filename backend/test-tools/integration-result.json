@@ -1,0 +1,295 @@
+{
+  "summary": {
+    "total": 57,
+    "passed": 57,
+    "failed": 0,
+    "failedNames": []
+  },
+  "results": [
+    {
+      "name": "frontend authApi.me",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"success\",\"data\":{\"id\":2,\"username\":\"client01\",\"email\":\"client01@campus.edu.cn\",\"nickname\":\"Client One\",\"phone\":\"18800000000\",\"school\":\"Ca"
+    },
+    {
+      "name": "frontend userApi.profile",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"success\",\"data\":{\"id\":2,\"username\":\"client01\",\"email\":\"client01@campus.edu.cn\",\"nickname\":\"Client One\",\"phone\":\"18800000000\",\"school\":\"Ca"
+    },
+    {
+      "name": "frontend userApi.public user",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"success\",\"data\":{\"id\":3,\"username\":\"hunter01\",\"email\":\"hunter01@campus.edu.cn\",\"nickname\":\"Hunter One\",\"phone\":\"18800000000\",\"school\":\"Ca"
+    },
+    {
+      "name": "frontend fileApi.upload no token blocked",
+      "ok": true,
+      "detail": "{\"code\":401,\"message\":\"请先登录\",\"data\":null}"
+    },
+    {
+      "name": "frontend taskApi.list via mock marketplace",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"content\":[{\"id\":101,\"title\":\"Coffee delivery to library\",\"description\":\"Please bring one latte from south gate to the librar"
+    },
+    {
+      "name": "frontend taskApi.getById via mock marketplace",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"id\":101,\"title\":\"Coffee delivery to library\",\"description\":\"Please bring one latte from south gate to the library third floo"
+    },
+    {
+      "name": "frontend taskApi.create via mock marketplace",
+      "ok": true,
+      "detail": "id=300, status=PENDING_REVIEW"
+    },
+    {
+      "name": "frontend adminApi.tasks via mock marketplace",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"content\":[{\"id\":300,\"title\":\"Integration task\",\"description\":\"Created by integration test\",\"category\":\"ERRAND\",\"difficulty\":"
+    },
+    {
+      "name": "frontend adminApi.reviewTask via mock marketplace",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"id\":300,\"title\":\"Integration task\",\"description\":\"Created by integration test\",\"category\":\"ERRAND\",\"difficulty\":\"F\",\"bountyA"
+    },
+    {
+      "name": "frontend taskFavoriteApi.add",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":null}"
+    },
+    {
+      "name": "frontend taskFavoriteApi.list",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"content\":[{\"id\":101,\"title\":\"Coffee delivery to library\",\"description\":\"Please bring one latte from south gate to the librar"
+    },
+    {
+      "name": "frontend taskHistoryApi.list",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"content\":[],\"totalElements\":0,\"totalPages\":0,\"number\":0,\"size\":10,\"first\":true,\"last\":true}}"
+    },
+    {
+      "name": "frontend taskApi.apply via mock marketplace",
+      "ok": true,
+      "detail": "application=701"
+    },
+    {
+      "name": "frontend taskApi.applications",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":[{\"id\":701,\"taskId\":300,\"taskTitle\":\"Integration task\",\"hunterId\":3,\"hunterName\":\"Hunter One\",\"hunterAvatar\":\"bangboo:kacha\",\""
+    },
+    {
+      "name": "frontend applicationApi.my",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"content\":[{\"id\":701,\"taskId\":300,\"taskTitle\":\"Integration task\",\"hunterId\":3,\"hunterName\":\"Hunter One\",\"hunterAvatar\":\"bangb"
+    },
+    {
+      "name": "frontend applicationApi.update",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"id\":701,\"taskId\":300,\"taskTitle\":\"Integration task\",\"hunterId\":3,\"hunterName\":\"Hunter One\",\"hunterAvatar\":\"bangboo:kacha\",\"h"
+    },
+    {
+      "name": "frontend applicationApi.accept",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"id\":303,\"contractNo\":\"CONTRACT-2026-304\",\"taskId\":300,\"taskTitle\":\"Integration task\",\"applicationId\":701,\"publisherId\":2,\"pu"
+    },
+    {
+      "name": "frontend contractApi.getById",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"id\":303,\"contractNo\":\"CONTRACT-2026-304\",\"taskId\":300,\"taskTitle\":\"Integration task\",\"applicationId\":701,\"publisherId\":2,\"pu"
+    },
+    {
+      "name": "frontend contractApi.submitEvidence",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"id\":901,\"contractId\":303,\"taskId\":300,\"submitterId\":3,\"submitterName\":\"Hunter One\",\"type\":\"TEXT\",\"content\":\"Done.\",\"createdA"
+    },
+    {
+      "name": "frontend contractApi.evidences",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":[{\"id\":901,\"contractId\":303,\"taskId\":300,\"submitterId\":3,\"submitterName\":\"Hunter One\",\"type\":\"TEXT\",\"content\":\"Done.\",\"created"
+    },
+    {
+      "name": "frontend contractApi.submitCompletion",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"id\":303,\"contractNo\":\"CONTRACT-2026-304\",\"taskId\":300,\"taskTitle\":\"Integration task\",\"applicationId\":701,\"publisherId\":2,\"pu"
+    },
+    {
+      "name": "frontend contractApi.confirmCompletion",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"id\":303,\"contractNo\":\"CONTRACT-2026-304\",\"taskId\":300,\"taskTitle\":\"Integration task\",\"applicationId\":701,\"publisherId\":2,\"pu"
+    },
+    {
+      "name": "frontend reviewApi.create via mock reputation",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"id\":1001,\"contractId\":303,\"taskId\":300,\"taskTitle\":\"Integration task\",\"reviewerId\":2,\"reviewerName\":\"Client One\",\"reviewerAv"
+    },
+    {
+      "name": "frontend reviewApi.byContract",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"publisherToHunter\":{\"id\":1001,\"contractId\":303,\"taskId\":300,\"taskTitle\":\"Integration task\",\"reviewerId\":2,\"reviewerName\":\"Cl"
+    },
+    {
+      "name": "frontend hunterApi.getById",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"userId\":3,\"username\":\"hunter01\",\"nickname\":\"Hunter One\",\"avatarUrl\":\"bangboo:kacha\",\"reputation\":920,\"reputationLevel\":\"Gold"
+    },
+    {
+      "name": "frontend hunterApi.me",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"userId\":3,\"username\":\"hunter01\",\"nickname\":\"Hunter One\",\"avatarUrl\":\"bangboo:kacha\",\"reputation\":920,\"reputationLevel\":\"Gold"
+    },
+    {
+      "name": "frontend hunterApi.leaderboard",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":[{\"userId\":3,\"username\":\"hunter01\",\"nickname\":\"Hunter One\",\"avatarUrl\":\"bangboo:kacha\",\"reputation\":920,\"reputationLevel\":\"Gol"
+    },
+    {
+      "name": "frontend hunterApi.badges",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":[\"ON_TIME\",\"GOOD_COMMUNICATION\",\"COURT_JUROR\"]}"
+    },
+    {
+      "name": "frontend hunterApi.creditLogs",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"content\":[{\"id\":1,\"userId\":3,\"delta\":8,\"reason\":\"Completed a task\",\"sourceType\":\"CONTRACT\",\"sourceId\":302,\"createdAt\":\"2026-"
+    },
+    {
+      "name": "frontend aiApi.breakdown via mock ai",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"title\":\"Mock task title\",\"category\":\"ERRAND\",\"difficulty\":\"F\",\"suggestedBountyMin\":10,\"suggestedBountyMax\":30,\"steps\":[\"Conf"
+    },
+    {
+      "name": "frontend aiApi.bountySuggestion via mock ai",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"suggestedBountyMin\":20,\"suggestedBountyMax\":60,\"reason\":\"Mock suggestion based on category and difficulty.\"}}"
+    },
+    {
+      "name": "frontend aiApi.riskAssessment via mock ai",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"risks\":[\"Scope may be unclear\"],\"suggestions\":[\"Add completion standard\"]}}"
+    },
+    {
+      "name": "frontend aiApi.coverImage via mock ai",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"imageUrl\":\"/uploads/mock/task-cover.png\",\"prompt\":\"mock cover prompt\",\"source\":\"mock-b-service\"}}"
+    },
+    {
+      "name": "frontend aiApi.bangbooAvatar via mock ai",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"imageUrl\":\"/uploads/mock/bangboo-avatar.png\",\"prompt\":\"mock avatar prompt\",\"source\":\"mock-b-service\",\"mascotKey\":\"kacha\"}}"
+    },
+    {
+      "name": "frontend aiApi.smartSearch via mock ai",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"keyword\":\"coffee\",\"category\":\"ERRAND\",\"tips\":[\"Try nearby tasks\"]}}"
+    },
+    {
+      "name": "frontend aiApi.courtSummary via mock ai",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"summary\":\"Mock court summary.\",\"focusPoints\":[\"scope\",\"evidence\",\"revision count\"],\"evidenceAnalysis\":\"Evidence is sufficien"
+    },
+    {
+      "name": "frontend aiApi.courtRoast via mock ai",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"OK\",\"data\":{\"roast\":\"Mock roast: keep the receipts and the scope clear.\",\"style\":\"ROAST\"}}"
+    },
+    {
+      "name": "frontend courtApi.getById A service",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"success\",\"data\":{\"courtCase\":{\"id\":401,\"caseNo\":\"COURT-2026-0401\",\"taskId\":201,\"taskTitle\":\"Poster polishing and layout\",\"contractId\":301"
+    },
+    {
+      "name": "frontend courtApi.addStatement A service",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"success\",\"data\":{\"id\":3,\"caseId\":401,\"userId\":3,\"userName\":\"Hunter One\",\"userAvatar\":\"bangboo:kacha\",\"role\":\"DEFENDANT\",\"content\":\"Integr"
+    },
+    {
+      "name": "frontend courtApi.addEvidence A service",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"success\",\"data\":{\"id\":3,\"caseId\":401,\"submitterId\":2,\"submitterName\":\"Client One\",\"type\":\"TEXT\",\"fileUrl\":null,\"content\":\"Integration evi"
+    },
+    {
+      "name": "frontend courtApi.vote party blocked",
+      "ok": true,
+      "detail": "{\"code\":403,\"message\":\"案件双方不能作为陪审员投票\",\"data\":null}"
+    },
+    {
+      "name": "frontend courtApi.vote jury",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"success\",\"data\":{\"id\":2,\"caseId\":401,\"voterId\":5,\"voterName\":\"Jury One\",\"option\":\"SUGGEST_SETTLEMENT\",\"weight\":1,\"reason\":\"Looks fair.\",\""
+    },
+    {
+      "name": "frontend courtApi.vote duplicate blocked",
+      "ok": true,
+      "detail": "{\"code\":409,\"message\":\"你已经投过票\",\"data\":null}"
+    },
+    {
+      "name": "frontend courtApi.voteStats",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"success\",\"data\":{\"supportPublisherRate\":0,\"supportHunterRate\":0.5,\"insufficientEvidenceRate\":0,\"settlementRate\":0.5,\"totalVotes\":2,\"total"
+    },
+    {
+      "name": "frontend courtApi.create calls mock B marketplace",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"success\",\"data\":{\"id\":402,\"caseNo\":\"COURT-20260702114220-40481\",\"taskId\":202,\"taskTitle\":\"Delivery scope verification\",\"contractId\":302,\""
+    },
+    {
+      "name": "frontend courtApi.adminList",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[{\"id\":402,\"caseNo\":\"COURT-20260702114220-40481\",\"taskId\":202,\"taskTitle\":\"Delivery scope verification\",\"contr"
+    },
+    {
+      "name": "frontend courtApi.rule calls mock B rule-result",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"success\",\"data\":{\"id\":402,\"caseNo\":\"COURT-20260702114220-40481\",\"taskId\":202,\"taskTitle\":\"Delivery scope verification\",\"contractId\":302,\""
+    },
+    {
+      "name": "frontend courtApi.precedents public",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[{\"id\":2,\"caseId\":402,\"title\":\"Integration court case\",\"summary\":\"案件已立案，等待双方补充陈述、证据与陪审投票。\",\"rulingResult\":\"PAR"
+    },
+    {
+      "name": "frontend messageApi.list A service",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[{\"id\":4,\"userId\":2,\"type\":\"COURT\",\"title\":\"小法庭已裁决\",\"content\":\"案件《Integration court case》已完成裁决。\",\"isRead\":fals"
+    },
+    {
+      "name": "frontend messageApi.unreadCount A service",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"success\",\"data\":2}"
+    },
+    {
+      "name": "frontend adminApi.dashboard combines A + mock B stats",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"success\",\"data\":{\"userCount\":6,\"certifiedUserCount\":5,\"taskCount\":5,\"recruitingTaskCount\":1,\"completedTaskCount\":1,\"disputeCount\":2,\"aiCa"
+    },
+    {
+      "name": "frontend adminApi.opsConfig",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"success\",\"data\":{\"taskReviewMode\":\"HYBRID\",\"minAutoPassSafetyScore\":45,\"maxAutoBlockSafetyScore\":90,\"aiSafetyEnabled\":true,\"aiOutputWater"
+    },
+    {
+      "name": "frontend adminApi.auditLogs",
+      "ok": true,
+      "detail": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[{\"id\":4,\"operatorId\":1,\"operatorName\":\"Admin\",\"action\":\"COURT_RULE\",\"targetType\":\"COURT_CASE\",\"targetId\":402,"
+    },
+    {
+      "name": "gateway blocks direct internal path",
+      "ok": true,
+      "detail": "\"{\\\"code\\\":403,\\\"message\\\":\\\"内部接口不允许外部访问\\\",\\\"data\\\":null}\""
+    },
+    {
+      "name": "gateway blocks api internal path",
+      "ok": true,
+      "detail": "\"{\\\"code\\\":403,\\\"message\\\":\\\"内部接口不允许外部访问\\\",\\\"data\\\":null}\""
+    },
+    {
+      "name": "mock B observed court mark-disputed",
+      "ok": true,
+      "detail": "count=1"
+    },
+    {
+      "name": "mock B observed court rule-result",
+      "ok": true,
+      "detail": "count=1"
+    }
+  ]
+}
